@@ -1,0 +1,8 @@
+.page {
+  background-color: #000;
+  padding-top: 45px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
