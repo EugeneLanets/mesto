@@ -1,0 +1,21 @@
+.button {
+  box-sizing: border-box;
+  min-height: 50px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  color: #fff;
+  font-family: inherit;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.22;
+  text-align: center;
+  padding: 14px 14px 18px;
+  position: relative;
+  transition: opacity .5s;
+}
+
+.button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}

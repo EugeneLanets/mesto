@@ -1,0 +1,21 @@
+.profile__button_type_add {
+  margin-left: auto;
+  width: 150px;
+  color: transparent;
+}
+
+.profile__button_type_add::before,
+.profile__button_type_add::after {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.profile__button_type_add::after {
+  transform: translateX(-50%) rotate(90deg);
+}

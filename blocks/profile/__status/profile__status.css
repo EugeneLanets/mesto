@@ -1,0 +1,4 @@
+.profile__status {
+  grid-area: status;
+  margin: 0;
+}

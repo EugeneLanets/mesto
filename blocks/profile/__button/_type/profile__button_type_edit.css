@@ -1,0 +1,15 @@
+.profile__button_type_edit {
+  grid-area: button;
+  align-self: center;
+  margin-top: 5px;
+  width: 24px;
+  height: 24px;
+  min-height: 24px;
+  padding: 7px;
+  border-width: 1px;
+  border-radius: 0;
+  background-image: url("../../../../images/edit.svg");
+  background-size: 10px;
+  background-position: center;
+  background-repeat: no-repeat;
+}

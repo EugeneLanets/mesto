@@ -2,4 +2,6 @@
   width: 68.75%;
   max-width: 880px;
   padding-bottom: 41px;
+  border-bottom: 1px solid #545454;
+  opacity: 0.7;
 }

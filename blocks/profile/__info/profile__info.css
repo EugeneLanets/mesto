@@ -1,0 +1,10 @@
+.profile__info {
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 24px;
+  grid-template-areas: 
+    "name button"
+    "status status";
+  column-gap: 18px;
+  row-gap: 16px;
+}
