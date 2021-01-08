@@ -13,6 +13,11 @@
   background-repeat: no-repeat;
 } 
 
+.profile__button_type_edit:hover,
+.profile__button_type_edit:hover:focus {
+  opacity: 0.6;
+}
+
 @media screen and (max-width: 1279px) {
   .profile__button_type_edit {
     margin-top: 6px;

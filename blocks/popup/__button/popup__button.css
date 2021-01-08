@@ -1,0 +1,52 @@
+.popup__button {
+  position: absolute;
+  bottom: 100%;
+  left: 100%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 0;
+  background: none;
+  transform: rotate(45deg);
+  transition: opacity .5s;
+}
+
+.popup__button::before,
+.popup__button::after {
+  content: "";
+  width: 40px;
+  height: 3px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 1;
+}
+
+.popup__button::before {
+  transform: translateY(-50%);
+}
+
+.popup__button::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.popup__button:hover, 
+.popup__button:focus {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 569px) {
+  .popup__button {
+   left: auto;
+   bottom: auto;
+   top: -50px;
+   right: 0;
+  }
+
+  .popup__button::before,
+  .popup__button::after {
+    width: 30px;
+  }
+}

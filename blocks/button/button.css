@@ -1,6 +1,6 @@
 .button {
   box-sizing: border-box;
-  background-color: transparent;
+  background-color: black;
   border: 2px solid #fff;
   border-radius: 2px;
   color: #fff;
@@ -16,6 +16,7 @@
 
 .button:hover,
 .button:focus {
-  opacity: 0.6;
+  opacity: 0.8;
   cursor: pointer;
+  outline: none;
 }
