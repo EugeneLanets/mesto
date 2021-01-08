@@ -2,6 +2,7 @@
   margin-left: auto;
   width: 150px;
   color: transparent;
+  flex-shrink: 1;
 }
 
 .profile__button_type_add::before,
