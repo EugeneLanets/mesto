@@ -1,6 +1,5 @@
 .button {
   box-sizing: border-box;
-  min-height: 50px;
   background-color: transparent;
   border: 2px solid #fff;
   border-radius: 2px;
@@ -10,7 +9,7 @@
   font-size: 18px;
   line-height: 1.22;
   text-align: center;
-  padding: 14px 14px 18px;
+  padding: 14px;
   position: relative;
   transition: opacity .5s;
 }

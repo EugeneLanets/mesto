@@ -1,8 +1,9 @@
 .profile__button_type_add {
   margin-left: auto;
+  margin-top: 35px;
   width: 150px;
   color: transparent;
-  flex-shrink: 1;
+  flex-shrink: 0;
 }
 
 .profile__button_type_add::before,
