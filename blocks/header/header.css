@@ -1,7 +1,16 @@
 .header {
+  box-sizing: border-box;
   width: 68.75%;
   max-width: 880px;
   padding-bottom: 41px;
   border-bottom: 1px solid #545454;
   opacity: 0.7;
+}
+
+@media screen and (max-width: 1023px) {
+  .header {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 5.9375% 32px;
+  }
 }

@@ -4,7 +4,7 @@
   margin-top: 16px;
   width: 24px;
   height: 24px;
-  padding: 7px;
+  padding: 0;
   border-width: 1px;
   border-radius: 0;
   background-image: url("../../../../images/edit.svg");
@@ -12,3 +12,21 @@
   background-position: center;
   background-repeat: no-repeat;
 } 
+
+@media screen and (max-width: 1279px) {
+  .profile__button_type_edit {
+    margin-top: 6px;
+  }
+}
+
+@media screen and (max-width: 569px) {
+  .profile__button_type_edit {
+    position: absolute;
+    top: 7px;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 0;
+  }
+}
+

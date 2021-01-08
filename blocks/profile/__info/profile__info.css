@@ -1,4 +1,5 @@
 .profile__info {
+  box-sizing: border-box;
   align-self: center;
   color: #fff;
   display: grid;
@@ -8,5 +9,35 @@
     "status status";
   column-gap: 18px;
   row-gap: 16px;
-  margin-right: 80px;
+  margin-right: 50px;
 }
+
+@media screen and (max-width: 1023px) {
+  .profile__info {
+    margin-right: auto;
+    max-width: 50%;
+    column-gap: 10px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile__info {
+    margin-right: 0;
+    max-width: 70%;
+    row-gap: 14px;
+  }
+}
+
+@media screen and (max-width: 569px) {
+  .profile__info {
+    max-width: none;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "name"
+      "status";
+    justify-items: center;
+    position: relative;
+    padding: 0 28px;
+  }
+}
+

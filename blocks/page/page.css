@@ -1,6 +1,6 @@
 .page {
   background-color: #000;
-  padding-top: 45px;
+  padding: 45px 0 65px;
   min-width: 320px;
   display: flex;
   flex-direction: column;
@@ -11,4 +11,10 @@
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
+}
+
+@media screen and (max-width: 1023px) {
+  .page {
+    padding: 25px 0 48px;
+  }
 }

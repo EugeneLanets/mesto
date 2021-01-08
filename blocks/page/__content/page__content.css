@@ -2,3 +2,10 @@
   width: 68.75%;
   max-width: 880px;
 }
+
+@media screen and (max-width: 1023px) {
+  .page__content {
+    width: 88.125%;
+    max-width: 88.125%;
+  }
+}
