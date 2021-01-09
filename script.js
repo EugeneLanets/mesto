@@ -18,7 +18,9 @@ const handlePopupClose = () => {
 const handleFormSubmit = evt => {
   evt.preventDefault();
   profileName.textContent = nameField.value;
+  profileName.title = nameField.value;
   profileStatus.textContent = statusField.value;
+  profileStatus.title = statusField.value;
   handlePopupClose();
 }
 
