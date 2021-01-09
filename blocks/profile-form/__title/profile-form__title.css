@@ -5,18 +5,6 @@
   line-height: 1.22;
 }
 
-.popup__button::before,
-.popup__button::after {
-  content: "";
-  width: 40px;
-  height: 3px;
-  background-color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  z-index: 1;
-}
-
 @media screen and (max-width: 569px) {
   .profile-form__title {
     font-size: 18px;

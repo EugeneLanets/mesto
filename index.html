@@ -26,42 +26,42 @@
           <img src="./images/gallery/barnegat_light.jpg" alt="Маяк Барнегат, США" class="card__image">
           <div class="card__info">
             <h2 class="card__text" title="Маяк Барнегат">Маяк Барнегат</h2>
-            <button class="card__like" aria-label="Кнопка нравится"></button>
+            <button type="button" class="card__like" aria-label="Кнопка нравится"></button>
           </div>
         </article>
         <article class="card">
           <img src="./images/gallery/folkestone.jpg" alt="Фолькстонский маяк, Великобритания" class="card__image">
           <div class="card__info">
             <h2 class="card__text" title="Фолькстонский маяк">Фолькстонский маяк</h2>
-            <button class="card__like" aria-label="Кнопка нравится"></button>
+            <button type="button" class="card__like" aria-label="Кнопка нравится"></button>
           </div>
         </article>
         <article class="card">
           <img src="./images/gallery/kamchatka.jpg" alt="Петропавловский маяк, Камчатка" class="card__image">
           <div class="card__info">
             <h2 class="card__text" title="Петропавловский маяк">Петропавловский маяк</h2>
-            <button class="card__like" aria-label="Кнопка нравится"></button>
+            <button type="button" class="card__like" aria-label="Кнопка нравится"></button>
           </div>
         </article>
         <article class="card">
           <img src="./images/gallery/svyatoy_nos.jpg" alt="Маяк на мысу Святой Нос, Кольский полуостров" class="card__image">
           <div class="card__info">
             <h2 class="card__text" title="Святоносский маяк">Святоносский маяк</h2>
-            <button class="card__like" aria-label="Кнопка нравится"></button>
+            <button type="button" class="card__like" aria-label="Кнопка нравится"></button>
           </div>
         </article>
         <article class="card">
           <img src="./images/gallery/tolbukhin.jpg" alt="Маяк Толбухинб Финский залив" class="card__image">
           <div class="card__info">
             <h2 class="card__text" title="Маяк Толбухин">Маяк Толбухин</h2>
-            <button class="card__like" aria-label="Кнопка нравится"></button>
+            <button type="button" class="card__like" aria-label="Кнопка нравится"></button>
           </div>
         </article>
         <article class="card">
           <img src="./images/gallery/vladivostok_tokarevskiy.jpg" alt="Маяк Токаревский, Владивосток" class="card__image">
           <div class="card__info">
             <h2 class="card__text" title="Токаревский маяк">Токаревский маяк</h2>
-            <button class="card__like" aria-label="Кнопка нравится"></button>
+            <button type="button" class="card__like" aria-label="Кнопка нравится"></button>
           </div>
         </article>
       </section>
@@ -70,15 +70,13 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
     <section class="popup">
-      <div class="popup__container">
-        <form class="profile-form">
-          <h2 class="profile-form__title">Редактировать профиль</h2>
-          <input type="text" name="name" class="profile-form__field" placeholder="Ваше имя">
-          <input type="text" name="status" class="profile-form__field" placeholder="Пара слов о себе">
-          <button type="submit" class="button">Сохранить</button>
-        </form>
-        <button class="popup__button" aria-label="Закрыть окно"></button>
-      </div>
+      <form class="profile-form popup__container" name="profile">
+        <h2 class="profile-form__title">Редактировать профиль</h2>
+        <input type="text" name="name" class="profile-form__field" placeholder="Ваше имя">
+        <input type="text" name="status" class="profile-form__field" placeholder="Пара слов о себе">
+        <button type="submit" class="button profile-form__submit">Сохранить</button>
+        <button class="popup__button" aria-label="Закрыть окно" type="button"></button>
+      </form>
     </section>
   </div>
   <script src="script.js"></script>

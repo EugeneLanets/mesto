@@ -22,6 +22,11 @@
   transform: translateX(-50%) rotate(90deg);
 }
 
+.profile__button_type_add:hover,
+.profile__button_type_add:focus {
+  opacity: 0.6;
+}
+
 @media screen and (max-width: 767px) {
   .profile__button_type_add {
     margin: 36px auto 0;

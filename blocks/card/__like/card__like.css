@@ -8,6 +8,7 @@
   background-size: 100%;
   background-repeat: no-repeat;
   transition: opacity .5s;
+  flex-shrink: 0;
 }
 
 .card__like:hover,
