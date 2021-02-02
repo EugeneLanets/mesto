@@ -1,3 +1,54 @@
+//CARDS
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+]; 
+
+const cardTemplate = document.querySelector("#card-template");
+
+const gallery = document.querySelector(".gallery");
+
+const createCard = ({name, link}) => {
+  const card = cardTemplate.content.cloneNode(true);
+  console.log(card);
+  const image = card.querySelector(".card__image");
+  console.log(image);
+  const title = card.querySelector(".card__text");
+  console.log(title);
+  image.src = link;
+  image.alt = name;
+  title.textContent = name;
+
+  return card;
+}
+
+gallery.append(...initialCards.map(createCard));
+
+
+// POPUP
+
 const popup = document.querySelector(".popup");
 const editForm = popup.querySelector(".profile-form");
 const popupCloseButton = popup.querySelector(".popup__button");
