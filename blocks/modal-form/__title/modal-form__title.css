@@ -1,4 +1,4 @@
-.profile-form__title {
+.modal-form__title {
   margin: 0 0 50px;
   font-weight: 900;
   font-size: 24px;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 569px) {
-  .profile-form__title {
+  .modal-form__title {
     font-size: 18px;
     margin-bottom: 70px;
   }

@@ -1,4 +1,4 @@
-.popup__button {
+.modal-form__close {
   position: absolute;
   bottom: 100%;
   left: 100%;
@@ -11,8 +11,8 @@
   transition: opacity .5s;
 }
 
-.popup__button::before,
-.popup__button::after {
+.modal-form__close::before,
+.modal-form__close::after {
   content: "";
   width: 40px;
   height: 3px;
@@ -23,31 +23,31 @@
   z-index: 1;
 }
 
-.popup__button::before {
+.modal-form__close::before {
   transform: translateY(-50%);
 }
 
-.popup__button::after {
+.modal-form__close::after {
   transform: translateY(-50%) rotate(90deg);
 }
 
-.popup__button:hover, 
-.popup__button:focus {
+.modal-form__close:hover, 
+.modal-form__close:focus {
   opacity: 0.6;
   cursor: pointer;
   outline: none;
 }
 
 @media screen and (max-width: 569px) {
-  .popup__button {
+  .modal-form__close {
    left: auto;
    bottom: auto;
    top: -50px;
    right: 0;
   }
 
-  .popup__button::before,
-  .popup__button::after {
+  .modal-form__close::before,
+  .modal-form__close::after {
     width: 30px;
   }
 }
