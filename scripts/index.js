@@ -1,5 +1,5 @@
 //CARDS
-const initialCards = [
+const cards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -41,7 +41,10 @@ const createCard = ({name, link}) => {
   return card;
 }
 
-gallery.append(...initialCards.map(createCard));
+gallery.append(...cards.map(createCard));
+
+
+
 
 
 // POPUP
@@ -53,7 +56,26 @@ const profileName = document.querySelector(".profile__name");
 const profileStatus = document.querySelector(".profile__status");
 const cardAddButton = document.querySelector(".profile__button_type_add");
 
-const createForm = formData => {
+const updateProfile = (profileInfo) => {
+  profileName.textContent = profileInfo.name;
+  profileStatus.textContent = profileInfo.secondary;
+}
+
+const addCard = (cardData) => {
+  const newCard = {
+    name: cardData.name,
+    link: cardData.secondary
+  }
+  gallery.append(createCard(newCard));
+  cards.push(newCard);
+}
+
+const modalFormSubmitCallbacks = {
+  "profile": updateProfile,
+  "add-card": addCard
+}
+
+const createModalForm = formData => {
   const modalForm = formTemplate.content.cloneNode(true);
 
   const form = modalForm.querySelector(".modal-form");
@@ -61,7 +83,7 @@ const createForm = formData => {
   const inputs = modalForm.querySelectorAll("input[type=text]");
   const submitButton = modalForm.querySelector(".modal-form__submit");
   const closeButton = modalForm.querySelector(".modal-form__close");
-
+  form.name = formData.name;
   title.textContent = formData.title;
 
   inputs.forEach((item, idx) => {
@@ -75,29 +97,29 @@ const createForm = formData => {
   submitButton.textContent = formData.buttonName;
 
   closeButton.addEventListener("click", closePopup);
-  form.addEventListener("submit", handleProfileFormSubmit);
+  form.addEventListener("submit", handleFormSubmit);
   
-
   return modalForm;
 }
 
-const handleProfileFormSubmit = evt => {
-  evt.preventDefault();
-  const modalForm = evt.target;
-  const nameField = modalForm.querySelector("[name=name");
-  const statusField = modalForm.querySelector("[name=status");
-  profileName.textContent = nameField.value;
-  profileStatus.textContent = statusField.value;
-  closePopup();
-}
-
 const renderModalForm = formData => {
-  popup.append(createForm(formData));
+  popup.append(createModalForm(formData));
 }
 
 const removeModalForm = () => {
   popup.querySelector(".modal-form").remove();
 }
+
+const handleFormSubmit = evt => {
+  evt.preventDefault();
+  const modalForm = evt.target;
+  const [nameField, secondaryField] = modalForm.querySelectorAll("input[type=text");
+  modalFormSubmitCallbacks[evt.target.name]({name: nameField.value, secondary: secondaryField.value})
+
+  closePopup()
+}
+
+
 
 const openPopup = formData => {
   renderModalForm(formData);
@@ -129,21 +151,19 @@ const profileFormData = {
   name: "profile",
   title: "Редактировать профиль",
   inputs: [
-    {name: "name", placeholder: "Ваше имя"},
+    {name: "username", placeholder: "Ваше имя"},
     {name: "status", placeholder: "Пара слов о себе"}
   ],
   buttonName: "Сохранить",
-  submitCallback: handleProfileFormSubmit
 }
 
 const cardFormData = {
   name: "add-card",
   title: "Новое место",
   inputs: [
-    {name: "name", placeholder: "Название"},
+    {name: "place-name", placeholder: "Название"},
     {name: "link", placeholder: "Ссылка на картинку"}
   ],
   buttonName: "Создать",
-  submitCallback: undefined
 }
 
