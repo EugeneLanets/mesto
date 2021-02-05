@@ -119,8 +119,6 @@ const handleFormSubmit = evt => {
   closePopup()
 }
 
-
-
 const openPopup = formData => {
   renderModalForm(formData);
   popup.classList.add("popup_opened");
@@ -138,14 +136,6 @@ const handleEscPress = evt => {
     closePopup();
   }
 }
-
-profileEditButton.addEventListener("click", () => {
-  openPopup(profileFormData);
-});
-
-cardAddButton.addEventListener("click", () => {
-  openPopup(cardFormData);
-});
 
 const profileFormData = {
   name: "profile",
@@ -166,4 +156,12 @@ const cardFormData = {
   ],
   buttonName: "Создать",
 }
+
+profileEditButton.addEventListener("click", () => {
+  openPopup(profileFormData);
+});
+
+cardAddButton.addEventListener("click", () => {
+  openPopup(cardFormData);
+});
 
