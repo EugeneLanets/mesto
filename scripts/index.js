@@ -66,8 +66,8 @@ const addCard = (cardData) => {
     name: cardData.name,
     link: cardData.secondary
   }
-  gallery.append(createCard(newCard));
-  cards.push(newCard);
+  gallery.prepend(createCard(newCard));
+  cards.unshift(newCard);
 }
 
 const modalFormSubmitCallbacks = {
