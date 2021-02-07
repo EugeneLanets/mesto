@@ -134,15 +134,14 @@ const handleFormSubmit = evt => {
   closePopup()
 }
 
-const openPopup = formData => {
-  renderModalForm(formData);
+const openPopup = () => {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", handleEscPress);
 }
 
 const closePopup = () => {
   popup.classList.remove("popup_opened");
-  removeModalForm();
+  popup.innerHTML = "";
   document.removeEventListener("keydown", handleEscPress);
 }
 
@@ -150,6 +149,11 @@ const handleEscPress = evt => {
   if (evt.key === "Escape") {
     closePopup();
   }
+}
+
+const handleModalFormOpen = (formData) => {
+  renderModalForm(formData);
+  openPopup();
 }
 
 const profileFormData = {
@@ -173,10 +177,10 @@ const cardFormData = {
 }
 
 profileEditButton.addEventListener("click", () => {
-  openPopup(profileFormData);
+  handleModalFormOpen(profileFormData);
 });
 
 cardAddButton.addEventListener("click", () => {
-  openPopup(cardFormData);
+  handleModalFormOpen(cardFormData);
 });
 
