@@ -1,5 +1,5 @@
 //CARDS
-const cards = [
+let cards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -31,12 +31,12 @@ const cardTemplate = document.querySelector("#card-template");
 const gallery = document.querySelector(".gallery");
 
 const createCard = ({name, link}) => {
-  const card = cardTemplate.content.cloneNode(true);
+  const card = cardTemplate.content.querySelector(".card").cloneNode(true);
   const image = card.querySelector(".card__image");
   const title = card.querySelector(".card__text");
   const likeButton = card.querySelector(".card__like");
   const deleteButton = card.querySelector(".card__delete");
-  
+
 
   image.src = link;
   image.alt = name;
@@ -45,6 +45,12 @@ const createCard = ({name, link}) => {
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like_active");
     likeButton.blur();
+  });
+
+  deleteButton.addEventListener("click", (evt) => {
+    const removingIdx = [...gallery.children].findIndex(item => item === card);
+    cards = cards.filter((item, idx) => idx !== removingIdx);
+    card.remove();
   })
 
   return card;
@@ -76,7 +82,7 @@ const addCard = (cardData) => {
     link: cardData.secondary
   }
   gallery.prepend(createCard(newCard));
-  cards.unshift(newCard);
+  cards = [newCard].concat(cards);
 }
 
 const modalFormSubmitCallbacks = {
