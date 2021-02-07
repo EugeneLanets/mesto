@@ -139,6 +139,9 @@ const openPopup = () => {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", handleEscPress);
   document.querySelector(".popup__close-button").addEventListener("click", closePopup);
+  popup.addEventListener("click", (evt) => {
+    if (evt.target === evt.currentTarget) closePopup();
+  })
 }
 
 const closePopup = () => {
