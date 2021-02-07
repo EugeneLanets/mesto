@@ -31,6 +31,7 @@
 
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/popup/_type/popup_type_dark.css");
+@import url("../blocks/popup/_animation-type/popup_animation-type_disappear.css");
 @import url("../blocks/popup/_opened/popup_opened.css");
 @import url("../blocks/popup/__container/popup__container.css");
 @import url("../blocks/popup/__close-button/popup__close-button.css");

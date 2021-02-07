@@ -137,6 +137,8 @@ const handleFormSubmit = evt => {
 
 const openPopup = () => {
   popup.classList.add("popup_opened");
+  popup.classList.remove("popup_animation-type_disappear");
+  
   document.addEventListener("keydown", handleEscPress);
   document.querySelector(".popup__close-button").addEventListener("click", closePopup);
   popup.addEventListener("click", (evt) => {
@@ -144,11 +146,19 @@ const openPopup = () => {
   })
 }
 
-const closePopup = () => {
+const onAnimationEnd = () => {
   popup.classList.remove("popup_opened");
   popup.classList.remove("popup_type_dark");
   popup.innerHTML = "";
+  popup.removeEventListener("animationend", onAnimationEnd);
+}
+
+const closePopup = () => {
+  popup.classList.add("popup_animation-type_disappear");  
+  popup.addEventListener("animationend", onAnimationEnd);
   document.removeEventListener("keydown", handleEscPress);
+  
+  
 }
 
 const handleEscPress = evt => {
