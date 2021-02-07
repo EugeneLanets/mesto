@@ -3,9 +3,17 @@
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   padding: 5px 5px 13px;
   margin-bottom: 25px;
+  font-family: "Inter";
   font-size: 14px;
-  line-height: 1.21;  
+  line-height: 1.21; 
+  color: #000; 
 }
+
+.modal-form__field::placeholder {
+  color: red;
+}
+
+
 
 .modal-form__field:last-of-type {
   margin-bottom: 50px;
