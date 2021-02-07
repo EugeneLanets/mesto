@@ -97,7 +97,7 @@ const createModalForm = formData => {
   const title = modalForm.querySelector(".modal-form__title");
   const inputs = modalForm.querySelectorAll("input[type=text]");
   const submitButton = modalForm.querySelector(".modal-form__submit");
-  const closeButton = modalForm.querySelector(".modal-form__close");
+  const closeButton = modalForm.querySelector(".popup__close-button");
   form.name = formData.name;
   title.textContent = formData.title;
 

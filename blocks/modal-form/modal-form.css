@@ -5,11 +5,12 @@
   flex-direction: column;
   padding: 34px 36px 37px;
   border-radius: 10px;
-  
+  width: 430px;
 }
 
 @media screen and (max-width: 569px) {
   .modal-form {
     padding: 25px 22px;
+    width: 88.125%;
   }
 }
