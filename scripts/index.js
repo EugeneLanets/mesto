@@ -35,6 +35,9 @@ const createCard = ({name, link}) => {
   const image = card.querySelector(".card__image");
   const title = card.querySelector(".card__text");
   const likeButton = card.querySelector(".card__like");
+  const deleteButton = card.querySelector(".card__delete");
+  
+
   image.src = link;
   image.alt = name;
   title.textContent = name;
