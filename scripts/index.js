@@ -29,6 +29,7 @@ let cards = [
 const cardTemplate = document.querySelector("#card-template");
 
 const gallery = document.querySelector(".gallery");
+const cardsCollection = gallery.children;
 
 const createCard = ({name, link}) => {
   const card = cardTemplate.content.querySelector(".card").cloneNode(true);
@@ -48,23 +49,29 @@ const createCard = ({name, link}) => {
   });
 
   deleteButton.addEventListener("click", (evt) => {
-    const removingIdx = [...gallery.children].findIndex(item => item === card);
+    const removingIdx = [...cardsCollection].findIndex(item => item === card);
     cards = cards.filter((item, idx) => idx !== removingIdx);
     card.remove();
-  })
+  });
+
+  image.addEventListener("click", handleImageClick);
 
   return card;
 }
 
-gallery.append(...cards.map(createCard));
+
 
 
 
 
 
 // POPUP
-const formTemplate = document.querySelector("#modal-form");
 const popup = document.querySelector(".popup");
+
+const formTemplate = document.querySelector("#modal-form");
+const bigPictureTemplate = document.querySelector("#big-picture-template");
+
+
 
 const profileEditButton = document.querySelector(".profile__button_type_edit");
 const profileName = document.querySelector(".profile__name");
@@ -97,7 +104,7 @@ const createModalForm = formData => {
   const title = modalForm.querySelector(".modal-form__title");
   const inputs = modalForm.querySelectorAll("input[type=text]");
   const submitButton = modalForm.querySelector(".modal-form__submit");
-  const closeButton = modalForm.querySelector(".popup__close-button");
+
   form.name = formData.name;
   title.textContent = formData.title;
 
@@ -110,19 +117,13 @@ const createModalForm = formData => {
   });
 
   submitButton.textContent = formData.buttonName;
-
-  closeButton.addEventListener("click", closePopup);
   form.addEventListener("submit", handleFormSubmit);
   
   return modalForm;
 }
 
-const renderModalForm = formData => {
-  popup.append(createModalForm(formData));
-}
-
-const removeModalForm = () => {
-  popup.querySelector(".modal-form").remove();
+const renderPopupInner = elem => {
+  popup.append(elem);
 }
 
 const handleFormSubmit = evt => {
@@ -137,10 +138,12 @@ const handleFormSubmit = evt => {
 const openPopup = () => {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", handleEscPress);
+  document.querySelector(".popup__close-button").addEventListener("click", closePopup);
 }
 
 const closePopup = () => {
   popup.classList.remove("popup_opened");
+  popup.classList.remove("popup_type_dark");
   popup.innerHTML = "";
   document.removeEventListener("keydown", handleEscPress);
 }
@@ -152,8 +155,29 @@ const handleEscPress = evt => {
 }
 
 const handleModalFormOpen = (formData) => {
-  renderModalForm(formData);
+  renderPopupInner(createModalForm(formData));
   openPopup();
+}
+
+const createBigPicture = ({name, link}) => {
+  const bigPicture = bigPictureTemplate.content.querySelector(".big-picture").cloneNode(true);
+  const image = bigPicture.querySelector(".big-picture__image");
+  const caption = bigPicture.querySelector(".big-picture__caption");
+
+  image.src = link;
+  image.alt = name;
+  caption.textContent = name;
+  
+  return bigPicture;
+}
+
+const handleImageClick = (evt) => {
+  evt.preventDefault();
+  const card = evt.target.closest(".card");
+  const cardIdx = [...cardsCollection].findIndex(item => item === card);
+  renderPopupInner(createBigPicture(cards[cardIdx]));
+  openPopup();
+  popup.classList.add("popup_type_dark");
 }
 
 const profileFormData = {
@@ -183,4 +207,6 @@ profileEditButton.addEventListener("click", () => {
 cardAddButton.addEventListener("click", () => {
   handleModalFormOpen(cardFormData);
 });
+
+gallery.append(...cards.map(createCard));
 
