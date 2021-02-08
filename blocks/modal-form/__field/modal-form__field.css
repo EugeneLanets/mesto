@@ -1,18 +1,26 @@
-.profile-form__field {
+.modal-form__field {
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   padding: 5px 5px 13px;
   margin-bottom: 25px;
+  font-family: "Inter";
   font-size: 14px;
-  line-height: 1.21;  
+  line-height: 1.21; 
+  color: #000; 
 }
 
-.profile-form__field:last-of-type {
+.modal-form__field::placeholder {
+  color: #c4c4c4;
+}
+
+
+
+.modal-form__field:last-of-type {
   margin-bottom: 50px;
 }
 
 @media screen and (max-width: 569px) {
-  .profile-form__field:last-of-type {
+  .modal-form__field:last-of-type {
     margin-bottom: 45px;
   }
 }

@@ -23,17 +23,28 @@
 @import url("../blocks/card/__info/card__info.css");
 @import url("../blocks/card/__text/card__text.css");
 @import url("../blocks/card/__like/card__like.css");
+@import url("../blocks/card/__like/_active/card__like_active.css");
+@import url("../blocks/card/__delete/card__delete.css");
 
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");
 
 @import url("../blocks/popup/popup.css");
+@import url("../blocks/popup/_type/popup_type_dark.css");
+@import url("../blocks/popup/_animation-type/popup_animation-type_disappear.css");
 @import url("../blocks/popup/_opened/popup_opened.css");
 @import url("../blocks/popup/__container/popup__container.css");
-@import url("../blocks/popup/__button/popup__button.css");
-@import url("../blocks/profile-form/profile-form.css");
-@import url("../blocks/profile-form/__title/profile-form__title.css");
-@import url("../blocks/profile-form/__field/profile-form__field.css");
+@import url("../blocks/popup/__close-button/popup__close-button.css");
+
+@import url("../blocks/modal-form/modal-form.css");
+@import url("../blocks/modal-form/__title/modal-form__title.css");
+@import url("../blocks/modal-form/__field/modal-form__field.css");
+
+@import url("../blocks/big-picture/__image/big-picture__image.css");
+@import url("../blocks/big-picture/__caption/big-picture__caption.css");
+
+
+
 
 
 

@@ -1,4 +1,4 @@
-.popup__button {
+.popup__close-button {
   position: absolute;
   bottom: 100%;
   left: 100%;
@@ -11,8 +11,8 @@
   transition: opacity .5s;
 }
 
-.popup__button::before,
-.popup__button::after {
+.popup__close-button::before,
+.popup__close-button::after {
   content: "";
   width: 40px;
   height: 3px;
@@ -23,31 +23,31 @@
   z-index: 1;
 }
 
-.popup__button::before {
+.popup__close-button::before {
   transform: translateY(-50%);
 }
 
-.popup__button::after {
+.popup__close-button::after {
   transform: translateY(-50%) rotate(90deg);
 }
 
-.popup__button:hover, 
-.popup__button:focus {
+.popup__close-button:hover, 
+.popup__close-button:focus {
   opacity: 0.6;
   cursor: pointer;
   outline: none;
 }
 
 @media screen and (max-width: 569px) {
-  .popup__button {
+  .popup__close-button {
    left: auto;
    bottom: auto;
    top: -50px;
    right: 0;
   }
 
-  .popup__button::before,
-  .popup__button::after {
+  .popup__close-button::before,
+  .popup__close-button::after {
     width: 30px;
   }
 }

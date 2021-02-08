@@ -1,11 +1,5 @@
 .popup__container {
   position: relative;
   margin: auto;
-  width: 430px;
-}
-
-@media screen and (max-width: 569px) {
-  .popup__container {
-    width: 88.125%;
-  }
+  
 }

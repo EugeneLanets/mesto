@@ -7,3 +7,7 @@
   object-position: center;
   vertical-align: bottom;
 }
+
+.card__image:hover {
+  cursor: pointer;
+}
