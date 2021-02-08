@@ -31,6 +31,27 @@ const cardTemplate = document.querySelector("#card-template");
 const gallery = document.querySelector(".gallery");
 const cardsCollection = gallery.children;
 
+const handleImageClick = (evt) => {
+  evt.preventDefault();
+  const card = evt.target.closest(".card");
+  const cardIdx = [...cardsCollection].findIndex(item => item === card);
+  renderPopupInner(createBigPicture(cards[cardIdx]));
+  openPopup();
+  popup.classList.add("popup_type_dark");
+}
+
+const createBigPicture = ({name, link}) => {
+  const bigPicture = bigPictureTemplate.content.querySelector(".big-picture").cloneNode(true);
+  const image = bigPicture.querySelector(".big-picture__image");
+  const caption = bigPicture.querySelector(".big-picture__caption");
+
+  image.src = link;
+  image.alt = name;
+  caption.textContent = name;
+  
+  return bigPicture;
+}
+
 const createCard = ({name, link}) => {
   const card = cardTemplate.content.querySelector(".card").cloneNode(true);
   const image = card.querySelector(".card__image");
@@ -59,30 +80,6 @@ const createCard = ({name, link}) => {
   return card;
 }
 
-
-
-
-
-
-
-// POPUP
-const popup = document.querySelector(".popup");
-
-const formTemplate = document.querySelector("#modal-form");
-const bigPictureTemplate = document.querySelector("#big-picture-template");
-
-
-
-const profileEditButton = document.querySelector(".profile__button_type_edit");
-const profileName = document.querySelector(".profile__name");
-const profileStatus = document.querySelector(".profile__status");
-const cardAddButton = document.querySelector(".profile__button_type_add");
-
-const updateProfile = (profileInfo) => {
-  profileName.textContent = profileInfo.name;
-  profileStatus.textContent = profileInfo.secondary;
-}
-
 const addCard = (cardData) => {
   const newCard = {
     name: cardData.name,
@@ -92,9 +89,89 @@ const addCard = (cardData) => {
   cards = [newCard].concat(cards);
 }
 
-const modalFormSubmitCallbacks = {
-  "profile": updateProfile,
-  "add-card": addCard
+const renderGallery = cards => {
+  gallery.append(...cards.map(createCard))
+}
+
+// POPUP
+const popup = document.querySelector(".popup");
+
+const handleEscPress = evt => {
+  if (evt.key === "Escape") {
+    closePopup();
+  }
+};
+
+const openPopup = () => {
+  popup.classList.add("popup_opened");
+  popup.classList.remove("popup_animation-type_disappear");
+  
+  document.addEventListener("keydown", handleEscPress);
+  document.querySelector(".popup__close-button").addEventListener("click", closePopup);
+  popup.addEventListener("click", (evt) => {
+    if (evt.target === evt.currentTarget) closePopup();
+  })
+}
+
+const closePopup = () => {
+  popup.classList.add("popup_animation-type_disappear");  
+  popup.addEventListener("animationend", onPopupCloseAnimationEnd);
+  document.removeEventListener("keydown", handleEscPress);
+}
+
+const renderPopupInner = elem => {
+  popup.append(elem);
+}
+
+const onPopupCloseAnimationEnd = () => {
+  popup.classList.remove("popup_opened");
+  popup.classList.remove("popup_type_dark");
+  popup.innerHTML = "";
+  popup.removeEventListener("animationend", onPopupCloseAnimationEnd);
+}
+
+// MODAL
+const formTemplate = document.querySelector("#modal-form");
+const bigPictureTemplate = document.querySelector("#big-picture-template");
+
+const profileEditButton = document.querySelector(".profile__button_type_edit");
+const profileName = document.querySelector(".profile__name");
+const profileStatus = document.querySelector(".profile__status");
+
+const cardAddButton = document.querySelector(".profile__button_type_add");
+
+const profileFormData = {
+  name: "profile",
+  title: "Редактировать профиль",
+  inputs: [
+    {name: "username", placeholder: "Ваше имя"},
+    {name: "status", placeholder: "Пара слов о себе"}
+  ],
+  buttonName: "Сохранить",
+}
+
+const cardFormData = {
+  name: "add-card",
+  title: "Новое место",
+  inputs: [
+    {name: "place-name", placeholder: "Название"},
+    {name: "link", placeholder: "Ссылка на картинку"}
+  ],
+  buttonName: "Создать",
+}
+
+const handleModalFormSubmit = evt => {
+  evt.preventDefault();
+  const modalForm = evt.target;
+  const [nameField, secondaryField] = modalForm.querySelectorAll("input[type=text");
+  modalFormSubmitCallbacks[evt.target.name]({name: nameField.value, secondary: secondaryField.value})
+
+  closePopup()
+}
+
+const handleModalFormOpen = (formData) => {
+  renderPopupInner(createModalForm(formData));
+  openPopup();
 }
 
 const createModalForm = formData => {
@@ -117,102 +194,22 @@ const createModalForm = formData => {
   });
 
   submitButton.textContent = formData.buttonName;
-  form.addEventListener("submit", handleFormSubmit);
+  form.addEventListener("submit", handleModalFormSubmit);
   
   return modalForm;
 }
 
-const renderPopupInner = elem => {
-  popup.append(elem);
+const updateProfile = (profileInfo) => {
+  profileName.textContent = profileInfo.name;
+  profileStatus.textContent = profileInfo.secondary;
 }
 
-const handleFormSubmit = evt => {
-  evt.preventDefault();
-  const modalForm = evt.target;
-  const [nameField, secondaryField] = modalForm.querySelectorAll("input[type=text");
-  modalFormSubmitCallbacks[evt.target.name]({name: nameField.value, secondary: secondaryField.value})
-
-  closePopup()
+const modalFormSubmitCallbacks = {
+  "profile": updateProfile,
+  "add-card": addCard
 }
 
-const openPopup = () => {
-  popup.classList.add("popup_opened");
-  popup.classList.remove("popup_animation-type_disappear");
-  
-  document.addEventListener("keydown", handleEscPress);
-  document.querySelector(".popup__close-button").addEventListener("click", closePopup);
-  popup.addEventListener("click", (evt) => {
-    if (evt.target === evt.currentTarget) closePopup();
-  })
-}
-
-const onAnimationEnd = () => {
-  popup.classList.remove("popup_opened");
-  popup.classList.remove("popup_type_dark");
-  popup.innerHTML = "";
-  popup.removeEventListener("animationend", onAnimationEnd);
-}
-
-const closePopup = () => {
-  popup.classList.add("popup_animation-type_disappear");  
-  popup.addEventListener("animationend", onAnimationEnd);
-  document.removeEventListener("keydown", handleEscPress);
-  
-  
-}
-
-const handleEscPress = evt => {
-  if (evt.key === "Escape") {
-    closePopup();
-  }
-}
-
-const handleModalFormOpen = (formData) => {
-  renderPopupInner(createModalForm(formData));
-  openPopup();
-}
-
-const createBigPicture = ({name, link}) => {
-  const bigPicture = bigPictureTemplate.content.querySelector(".big-picture").cloneNode(true);
-  const image = bigPicture.querySelector(".big-picture__image");
-  const caption = bigPicture.querySelector(".big-picture__caption");
-
-  image.src = link;
-  image.alt = name;
-  caption.textContent = name;
-  
-  return bigPicture;
-}
-
-const handleImageClick = (evt) => {
-  evt.preventDefault();
-  const card = evt.target.closest(".card");
-  const cardIdx = [...cardsCollection].findIndex(item => item === card);
-  renderPopupInner(createBigPicture(cards[cardIdx]));
-  openPopup();
-  popup.classList.add("popup_type_dark");
-}
-
-const profileFormData = {
-  name: "profile",
-  title: "Редактировать профиль",
-  inputs: [
-    {name: "username", placeholder: "Ваше имя"},
-    {name: "status", placeholder: "Пара слов о себе"}
-  ],
-  buttonName: "Сохранить",
-}
-
-const cardFormData = {
-  name: "add-card",
-  title: "Новое место",
-  inputs: [
-    {name: "place-name", placeholder: "Название"},
-    {name: "link", placeholder: "Ссылка на картинку"}
-  ],
-  buttonName: "Создать",
-}
-
+//MAIN
 profileEditButton.addEventListener("click", () => {
   handleModalFormOpen(profileFormData);
 });
@@ -221,5 +218,5 @@ cardAddButton.addEventListener("click", () => {
   handleModalFormOpen(cardFormData);
 });
 
-gallery.append(...cards.map(createCard));
+renderGallery(cards);
 
