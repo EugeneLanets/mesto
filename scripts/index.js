@@ -82,9 +82,6 @@ const openPopup = () => {
 const closePopup = () => {
   popup.classList.add("popup_animation-type_disappear");  
   popup.addEventListener("animationend", onPopupCloseAnimationEnd);
-  popupInnerElements.forEach(elem => {
-    elem.classList.remove("popup__inner_visible");
-  })
   popup.removeEventListener("click", handleOverlayClick);
   document.removeEventListener("keydown", handleEscPress);
   clearForm(cardAddForm);
@@ -93,6 +90,9 @@ const closePopup = () => {
 const onPopupCloseAnimationEnd = () => {
   popup.classList.remove("popup_opened");
   popup.classList.remove("popup_type_dark");
+  popupInnerElements.forEach(elem => {
+    elem.classList.remove("popup__inner_visible");
+  })
   popup.removeEventListener("animationend", onPopupCloseAnimationEnd);
 }
 
