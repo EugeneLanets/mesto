@@ -1,11 +1,10 @@
 .modal-form {
   box-sizing: border-box;
   background-color: #fff;
-  display: flex;
-  flex-direction: column;
   padding: 34px 36px 37px;
   border-radius: 10px;
   width: 430px;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 569px) {

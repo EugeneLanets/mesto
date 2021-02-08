@@ -34,12 +34,15 @@
 @import url("../blocks/popup/_animation-type/popup_animation-type_disappear.css");
 @import url("../blocks/popup/_opened/popup_opened.css");
 @import url("../blocks/popup/__container/popup__container.css");
+@import url("../blocks/popup/__inner/popup__inner.css");
+@import url("../blocks/popup/__inner/_visible/popup__inner_visible.css");
 @import url("../blocks/popup/__close-button/popup__close-button.css");
 
 @import url("../blocks/modal-form/modal-form.css");
 @import url("../blocks/modal-form/__title/modal-form__title.css");
 @import url("../blocks/modal-form/__field/modal-form__field.css");
 
+@import url("../blocks/big-picture/big-picture.css");
 @import url("../blocks/big-picture/__image/big-picture__image.css");
 @import url("../blocks/big-picture/__caption/big-picture__caption.css");
 
