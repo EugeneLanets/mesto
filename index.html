@@ -28,24 +28,33 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_type_profile-edit">
       <div class="popup__container">
-        <form class="modal-form modal-form_type_profile-edit popup__inner" name="profile-edit">
+        <form class="modal-form" name="profile-edit">
           <h2 class="modal-form__title">Редактировать профиль</h2>
-          <input type="text" name="username" class="modal-form__field" placeholder="Ваше имя">
-          <input type="text" name="status" class="modal-form__field" placeholder="Пара слов о себе">
+          <input type="text" name="username" class="modal-form__field" placeholder="Ваше имя" required>
+          <input type="text" name="status" class="modal-form__field" placeholder="Пара слов о себе" required>
           <button type="submit" class="button modal-form__submit">Сохранить</button>
-          
         </form>
+        <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
+      </div>
+    </div>
 
-        <form class="modal-form modal-form_type_card-add popup__inner" name="card-add">
+    <div class="popup popup_type_card-add">
+      <div class="popup__container">
+        <form class="modal-form" name="card-add">
           <h2 class="modal-form__title">Новое место</h2>
-          <input type="text" name="name" class="modal-form__field" placeholder="Название">
-          <input type="text" name="link" class="modal-form__field" placeholder="Сыылка на картинку">
+          <input type="text" name="name" class="modal-form__field" placeholder="Название" required>
+          <input type="url" name="link" class="modal-form__field" placeholder="Сcылка на картинку" required>
           <button type="submit" class="button modal-form__submit">Сохранить</button>
         </form>
+        <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
+      </div>
+    </div>
 
-        <figure class="big-picture popup__inner">
+    <div class="popup popup_type_card-picture">
+      <div class="popup__container">
+        <figure class="big-picture">
           <img src="#" alt=" " class="big-picture__image">
           <figcaption class="big-picture__caption"></figcaption>
         </figure>

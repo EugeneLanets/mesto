@@ -4,6 +4,7 @@
   padding: 34px 36px 37px;
   border-radius: 10px;
   width: 430px;
+  display: flex;
   flex-direction: column;
 }
 

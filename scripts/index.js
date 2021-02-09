@@ -1,10 +1,12 @@
 //CARDS
-let cards = [...initialCards]; 
 
 const cardTemplate = document.querySelector("#card-template");
 
 const gallery = document.querySelector(".gallery");
-const cardsCollection = gallery.children;
+
+const bigPicture = document.querySelector(".popup_type_card-picture");
+const bigPictureImage = bigPicture.querySelector(".big-picture__image");
+const bigPictureCaption = bigPicture.querySelector(".big-picture__caption");
 
 const updateBigPicture = ({name, link}) => {
   bigPictureImage.src = link;
@@ -13,12 +15,8 @@ const updateBigPicture = ({name, link}) => {
 }
 
 const handleImageClick = (evt) => {
-  evt.preventDefault();
-  const card = evt.target.closest(".card");
-  const cardIdx = [...cardsCollection].findIndex(item => item === card);
-  handlePopupInnerOpen(bigPicture);
-  updateBigPicture(cards[cardIdx]);
-  popup.classList.add("popup_type_dark");
+  updateBigPicture({name: evt.target.alt, link: evt.target.src});
+  openPopup(bigPicture);
 }
 
 const createCard = ({name, link}) => {
@@ -37,9 +35,7 @@ const createCard = ({name, link}) => {
     likeButton.blur();
   });
 
-  deleteButton.addEventListener("click", (evt) => {
-    const removingIdx = [...cardsCollection].findIndex(item => item === card);
-    cards = cards.filter((item, idx) => idx !== removingIdx);
+  deleteButton.addEventListener("click", () => {
     card.remove();
   });
 
@@ -48,9 +44,8 @@ const createCard = ({name, link}) => {
   return card;
 }
 
-const addCard = (newCard) => {
+const renderCard = (newCard) => {
   gallery.prepend(createCard(newCard));
-  cards = [newCard].concat(cards);
 }
 
 const renderGallery = cards => {
@@ -58,107 +53,99 @@ const renderGallery = cards => {
 }
 
 // POPUP
-const popup = document.querySelector(".popup");
-const popupInnerElements = popup.querySelectorAll(".popup__inner");
 
-const handleEscPress = evt => {
-  if (evt.key === "Escape") {
-    closePopup();
-  }
-};
-
-const handleOverlayClick = (evt) => {
-  if (evt.target === evt.currentTarget) closePopup();
-}
-
-const openPopup = () => {
+const openPopup = popup => {
+  const closeButton = popup.querySelector(".popup__close-button");
   popup.classList.add("popup_opened");
-  popup.classList.remove("popup_animation-type_disappear");
-  document.addEventListener("keydown", handleEscPress);
-  popup.querySelector(".popup__close-button").addEventListener("click", closePopup);
+  closeButton.addEventListener("click", closePopup);
+  document.addEventListener("keydown", handleEscKeyPress);
   popup.addEventListener("click", handleOverlayClick);
 }
 
 const closePopup = () => {
-  popup.classList.add("popup_animation-type_disappear");  
-  popup.addEventListener("animationend", onPopupCloseAnimationEnd);
-  popup.removeEventListener("click", handleOverlayClick);
-  document.removeEventListener("keydown", handleEscPress);
+  const openedPopup = document.querySelector(".popup_opened");
+  openedPopup.classList.add("popup_animation-type_disappear");
+  openedPopup.addEventListener("animationend", handlePopupCloseAnimationEnd);
+  document.removeEventListener("keydown", handleEscKeyPress);
+  openedPopup.removeEventListener("click", handleOverlayClick);
   clearForm(cardAddForm);
 }
 
-const onPopupCloseAnimationEnd = () => {
-  popup.classList.remove("popup_opened");
-  popup.classList.remove("popup_type_dark");
-  popupInnerElements.forEach(elem => {
-    elem.classList.remove("popup__inner_visible");
-  })
-  popup.removeEventListener("animationend", onPopupCloseAnimationEnd);
+const handlePopupCloseAnimationEnd = (evt) => {
+  evt.target.classList.remove('popup_opened');
+  evt.target.removeEventListener("animationend", handlePopupCloseAnimationEnd);
+  evt.target.classList.remove("popup_animation-type_disappear");
 }
 
-const handlePopupInnerOpen = (inner) => {
-  openPopup();
-  inner.classList.add("popup__inner_visible");
+const handleEscKeyPress = evt => {
+  if (evt.key === "Escape") closePopup();
+}
+
+const handleOverlayClick = evt => {
+  if (evt.target === evt.currentTarget) closePopup();
 }
 
 // MODAL
-const bigPicture = popup.querySelector(".big-picture");
-const bigPictureImage = bigPicture.querySelector(".big-picture__image");
-const bigPictureCaption = bigPicture.querySelector(".big-picture__caption");
-
+const clearForm = form => {
+  form.reset();
+}
+// profile
 const profileEditButton = document.querySelector(".profile__button_type_edit");
 const profileName = document.querySelector(".profile__name");
 const profileStatus = document.querySelector(".profile__status");
 
-const profileEditForm = popup.querySelector('.modal-form_type_profile-edit');
-const [profileNameField, profileStatusField] = profileEditForm.querySelectorAll(".modal-form__field");
+const profileEditPopup = document.querySelector(".popup_type_profile-edit");
+const profileEditForm = profileEditPopup.querySelector(".modal-form");
+const [profileNameField, profileStatusField] = profileEditForm.querySelectorAll("input");
 
-const clearForm = (form) => {
-  form.reset();
-};
-
-const fillProfileEditForm = () => {
+const fillProfileEditFormFields = () => {
   profileNameField.value = profileName.textContent;
   profileStatusField.value = profileStatus.textContent;
 }
 
 const updateProfile = () => {
   profileName.textContent = profileNameField.value;
-  profileStatus.textContent = profileStatusField.value; 
+  profileStatus.textContent = profileStatusField.value;
 }
-
-
 
 const handleProfileEditFormSubmit = (evt) => {
   evt.preventDefault();
   updateProfile();
   closePopup();
+  profileEditPopup.removeEventListener("submit", handleProfileEditFormSubmit);
 }
 
+const handleProfileEditOpen = () => {
+  openPopup(profileEditPopup);
+  fillProfileEditFormFields();
+  profileEditForm.addEventListener("submit", handleProfileEditFormSubmit);
+}
 
-
+// add-card
 const cardAddButton = document.querySelector(".profile__button_type_add");
-const cardAddForm = popup.querySelector(".modal-form_type_card-add");
-const [newCardName, newCardLink] = cardAddForm.querySelectorAll(".modal-form__field");
+
+const cardAddPopup = document.querySelector(".popup_type_card-add");
+const cardAddForm = cardAddPopup.querySelector(".modal-form");
+const [cardNameField, cardLinkField] = cardAddForm.querySelectorAll("input");
 
 const handleCardAddFormSubmit = (evt) => {
   evt.preventDefault();
-  addCard({name: newCardName.value, link: newCardLink.value});
-  clearForm(evt.target);
+  const newCard = {
+    name: cardNameField.value,
+    link: cardLinkField.value
+  };
+  renderCard(newCard);
   closePopup();
 }
 
-//MAIN
-profileEditButton.addEventListener("click", () => {
-  handlePopupInnerOpen(profileEditForm);
-  fillProfileEditForm();
-});
-profileEditForm.addEventListener("submit", handleProfileEditFormSubmit);
+const handleCardAddOpen = () => {
+  openPopup(cardAddPopup);
+  cardAddForm.addEventListener("submit", handleCardAddFormSubmit);
+}
 
-cardAddButton.addEventListener("click", () => {
-  handlePopupInnerOpen(cardAddForm);
-})
-cardAddForm.addEventListener("submit", handleCardAddFormSubmit);
+//MAIN
+
+profileEditButton.addEventListener("click", handleProfileEditOpen);
+cardAddButton.addEventListener("click", handleCardAddOpen);
 
 renderGallery(initialCards);
-

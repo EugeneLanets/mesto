@@ -30,12 +30,9 @@
 @import url("../blocks/footer/__copyright/footer__copyright.css");
 
 @import url("../blocks/popup/popup.css");
-@import url("../blocks/popup/_type/popup_type_dark.css");
 @import url("../blocks/popup/_animation-type/popup_animation-type_disappear.css");
 @import url("../blocks/popup/_opened/popup_opened.css");
 @import url("../blocks/popup/__container/popup__container.css");
-@import url("../blocks/popup/__inner/popup__inner.css");
-@import url("../blocks/popup/__inner/_visible/popup__inner_visible.css");
 @import url("../blocks/popup/__close-button/popup__close-button.css");
 
 @import url("../blocks/modal-form/modal-form.css");
