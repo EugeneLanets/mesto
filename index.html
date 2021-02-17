@@ -30,10 +30,12 @@
     </footer>
     <div class="popup popup_type_profile-edit">
       <div class="popup__container">
-        <form class="modal-form" name="profile-edit">
+        <form class="modal-form" name="profile-edit" novalidate>
           <h2 class="modal-form__title">Редактировать профиль</h2>
-          <input type="text" name="username" class="modal-form__field" placeholder="Ваше имя" required>
-          <input type="text" name="status" class="modal-form__field" placeholder="Пара слов о себе" required>
+          <input type="text" name="username" class="modal-form__field" placeholder="Ваше имя" id="profile-username" required>
+          <p class="modal-form__error profile-username-error">Ошибка</p>
+          <input type="text" name="status" class="modal-form__field" placeholder="Пара слов о себе"  id="profile-status" required>
+          <p class="modal-form__error profile-status-error">Ошибка</p>
           <button type="submit" class="button modal-form__submit">Сохранить</button>
         </form>
         <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
@@ -42,10 +44,12 @@
 
     <div class="popup popup_type_card-add">
       <div class="popup__container">
-        <form class="modal-form" name="card-add">
+        <form class="modal-form" name="card-add" novalidate>
           <h2 class="modal-form__title">Новое место</h2>
-          <input type="text" name="name" class="modal-form__field" placeholder="Название" required>
-          <input type="url" name="link" class="modal-form__field" placeholder="Сcылка на картинку" required>
+          <input type="text" name="name" class="modal-form__field" placeholder="Название" id="card-add-name" required>
+          <p class="modal-form__error card-add-name-error">Ошибка</p>
+          <input type="url" name="link" class="modal-form__field" placeholder="Сcылка на картинку" id="card-add-link" required>
+          <p class="modal-form__error card-add-link-error">Ошибка</p>
           <button type="submit" class="button modal-form__submit">Сохранить</button>
         </form>
         <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>

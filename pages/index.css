@@ -39,6 +39,11 @@
 @import url("../blocks/modal-form/modal-form.css");
 @import url("../blocks/modal-form/__title/modal-form__title.css");
 @import url("../blocks/modal-form/__field/modal-form__field.css");
+@import url("../blocks/modal-form/__field/_invalid/modal-form__field_invalid.css");
+@import url("../blocks/modal-form/__error/modal-form__error.css");
+@import url("../blocks/modal-form/__error/_visible/modal-form__error_visible.css");
+@import url("../blocks/modal-form/__submit/modal-form__submit.css");
+@import url("../blocks/modal-form/__submit/_disabled/modal-form__submit_disabled.css");
 
 @import url("../blocks/big-picture/big-picture.css");
 @import url("../blocks/big-picture/__image/big-picture__image.css");

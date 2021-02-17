@@ -1,0 +1,7 @@
+.modal-form__submit_disabled,
+.modal-form__submit_disabled:hover {
+  opacity: 0.3;
+  color: #000;
+  background-color: transparent;
+  cursor: default;
+}
