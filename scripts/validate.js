@@ -30,44 +30,43 @@ const hideError = (formElement, inputElement, {inputErrorClass, errorClass}) => 
 
 
 
-const checkInputValidity = (formElement, inputElement, {inputErrorClass, errorClass}) => {
+const checkInputValidity = (formElement, inputElement, options) => {
   if (!inputElement.validity.valid) {
-    showError(formElement, inputElement, {inputErrorClass, errorClass});
+    showError(formElement, inputElement, options);
   } else {
-    hideError(formElement, inputElement, {inputErrorClass, errorClass});
+    hideError(formElement, inputElement, options);
   }
 }
 
-const setEventListeners = (formElement, {inputSelector, inputErrorClass, errorClass, submitButtonSelector, inactiveButtonClass}) => {
-  const inputsList = [...formElement.querySelectorAll(inputSelector)];
-  const submitButton = formElement.querySelector(submitButtonSelector);
+const setEventListeners = (formElement, options) => {
+  const inputsList = [...formElement.querySelectorAll(options.inputSelector)];
+  const submitButton = formElement.querySelector(options.submitButtonSelector);
 
+  toggleButtonState(inputsList, submitButton, options);
   inputsList.forEach(inputElement => {
     inputElement.addEventListener("input", () => {
-      checkInputValidity(formElement, inputElement, {inputErrorClass, errorClass});
-      toggleButtonState(inputsList, submitButton, {inactiveButtonClass});
+      checkInputValidity(formElement, inputElement, options);
+      toggleButtonState(inputsList, submitButton, options);
     });
       
   });
 }
 
-const enableValidation = ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}) => {
-  console.log("Forms validation enabled");
-  const formsList = [...document.querySelectorAll(formSelector)];
+const enableValidation = (options) => {
+  const formsList = [...document.querySelectorAll(options.formSelector)];
   
   formsList.forEach(formElement => {
-    formElement.addEventListener("submit", evt => {
-      evt.preventDefault();
-    })
-    setEventListeners(formElement, {inputSelector, inputErrorClass, errorClass, submitButtonSelector, inactiveButtonClass});
+    setEventListeners(formElement, options);
   })
 }
 
-enableValidation({
+const validationParams = {
   formSelector: ".modal-form", 
   inputSelector: ".modal-form__field", 
   submitButtonSelector: ".modal-form__submit", 
   inactiveButtonClass: "modal-form__submit_disabled", 
   inputErrorClass: "modal-form__field_invalid", 
   errorClass: "modal-form__error_visible"
-});
+};
+
+enableValidation(validationParams);
