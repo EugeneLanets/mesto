@@ -144,6 +144,7 @@ const handleCardAddOpen = () => {
 }
 
 //MAIN
+fillProfileEditFormFields();
 
 profileEditButton.addEventListener("click", handleProfileEditOpen);
 cardAddButton.addEventListener("click", handleCardAddOpen);
