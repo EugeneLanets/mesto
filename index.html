@@ -33,10 +33,10 @@
         <form class="modal-form" name="profile-edit" novalidate>
           <h2 class="modal-form__title">Редактировать профиль</h2>
           <input type="text" name="username" class="modal-form__field" placeholder="Ваше имя" id="profile-username" required minlength="2" maxlength="40">
-          <p class="modal-form__error profile-username-error">Ошибка</p>
+          <p class="modal-form__error profile-username-error"></p>
           <input type="text" name="status" class="modal-form__field" placeholder="Пара слов о себе"  id="profile-status" required  minlength="2" maxlength="200">
-          <p class="modal-form__error profile-status-error">Ошибка</p>
-          <button type="submit" class="button modal-form__submit" disabled>Сохранить</button>
+          <p class="modal-form__error profile-status-error"></p>
+          <button type="submit" class="button modal-form__submit">Сохранить</button>
         </form>
         <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
       </div>
@@ -47,10 +47,10 @@
         <form class="modal-form" name="card-add" novalidate>
           <h2 class="modal-form__title">Новое место</h2>
           <input type="text" name="card-name" class="modal-form__field" placeholder="Название" id="card-add-name" required>
-          <p class="modal-form__error card-add-name-error">Ошибка</p>
+          <p class="modal-form__error card-add-name-error"></p>
           <input type="url" name="card-link" class="modal-form__field" placeholder="Сcылка на картинку" id="card-add-link" required>
-          <p class="modal-form__error card-add-link-error">Ошибка</p>
-          <button type="submit" class="button modal-form__submit">Сохранить</button>
+          <p class="modal-form__error card-add-link-error"></p>
+          <button type="submit" class="button modal-form__submit modal-form__submit_disabled" disabled>Сохранить</button>
         </form>
         <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
       </div>
@@ -77,7 +77,7 @@
     </article>
   </template>
   <script src="./scripts/initial-cards.js"></script>
-  <script src="./scripts/validate.js"></script>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
