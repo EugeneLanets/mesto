@@ -68,7 +68,6 @@ const closePopup = () => {
   openedPopup.addEventListener("animationend", handlePopupCloseAnimationEnd);
   document.removeEventListener("keydown", handleEscKeyPress);
   openedPopup.removeEventListener("click", handleOverlayClick);
-  clearForm(cardAddForm);
 }
 
 const handlePopupCloseAnimationEnd = (evt) => {
@@ -135,6 +134,7 @@ const handleCardAddFormSubmit = (evt) => {
     link: cardLinkField.value
   };
   renderCard(newCard);
+  clearForm(cardAddForm);
   closePopup();
 }
 
