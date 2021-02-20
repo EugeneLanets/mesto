@@ -53,6 +53,7 @@ const renderGallery = cards => {
 }
 
 // POPUP
+const popups = document.querySelectorAll(".popup");
 
 const openPopup = popup => {
   popup.classList.add("popup_opened");
@@ -76,23 +77,10 @@ const handleEscKeyPress = evt => {
 }
 
 // MODAL
-const popups = document.querySelectorAll(".popup");
 
 const clearForm = form => {
   form.reset();
 }
-
-popups.forEach((popup) => {
-  popup.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("popup_opened")) {
-      closePopup(popup);
-    }
-
-    if (evt.target.classList.contains("popup__close-button")) {
-      closePopup(popup);
-    }
-  })
-})
 
 // profile
 const profileEditButton = document.querySelector(".profile__button_type_edit");
@@ -148,6 +136,18 @@ const handleCardAddOpen = () => {
 
 //MAIN
 fillProfileEditFormFields();
+
+popups.forEach((popup) => {
+  popup.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+
+    if (evt.target.classList.contains("popup__close-button")) {
+      closePopup(popup);
+    }
+  })
+});
 
 profileEditButton.addEventListener("click", handleProfileEditOpen);
 cardAddButton.addEventListener("click", handleCardAddOpen);
