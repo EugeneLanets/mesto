@@ -73,7 +73,10 @@ const handlePopupCloseAnimationEnd = (evt) => {
 }
 
 const handleEscKeyPress = evt => {
-  if (evt.key === "Escape") closePopup();
+  if (evt.key === "Escape") { 
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
 }
 
 // MODAL
