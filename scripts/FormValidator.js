@@ -54,10 +54,8 @@ class FormValidator {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(this._formElement, inputElement, this._options);
         this._toggleButtonState(inputsList, submitButton, this._options);
-      });
-      
-  });
-    
+      });      
+    });
   }
 
   enableValidation() {

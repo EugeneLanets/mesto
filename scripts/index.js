@@ -1,6 +1,6 @@
-import Card from "./card.js";
-import FormValidator from "./form-validator.js";
-import {initialCards, validationParams} from "./options.js";
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+import { initialCards, validationParams } from "./options.js";
 import { openPopup, closePopup } from "./popup.js";
 
 const cardTemplateSelector = ".card-template";
