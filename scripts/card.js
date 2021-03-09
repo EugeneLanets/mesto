@@ -1,3 +1,14 @@
+import { openPopup } from "./popup.js";
+
+const bigPicture = document.querySelector(".popup_type_card-picture");
+const bigPictureImage = bigPicture.querySelector(".big-picture__image");
+const bigPictureCaption = bigPicture.querySelector(".big-picture__caption");
+
+const updateBigPicture = (name, link) => {
+  bigPictureImage.src = link;
+  bigPictureImage.alt = name;
+  bigPictureCaption.textContent = name;
+}
 class Card {
   constructor({name, link}, cardSelector) {
     this._name = name;
@@ -13,13 +24,18 @@ class Card {
       .cloneNode(true);
   }
 
-  _handleLikeButton = (evt) => {
+  _handleLikeButton(evt) {
     evt.target.classList.toggle("card__like_active");
     evt.target.blur();
   }
 
-  _handleDeleteButton = () => {
+  _handleDeleteButton() {
     this._element.remove();
+  }
+
+  _handleImageClick() {
+    updateBigPicture(this._name, this._link);
+    openPopup(bigPicture);
   }
 
   _setEventListeners() {
@@ -29,7 +45,11 @@ class Card {
 
     this._element
       .querySelector(".card__delete")
-      .addEventListener("click", this._handleDeleteButton);
+      .addEventListener("click", () => this._handleDeleteButton());
+
+    this._element
+      .querySelector(".card__image")
+      .addEventListener("click", () => this._handleImageClick());
   }
 
   generateCard() {
