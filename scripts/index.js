@@ -1,10 +1,12 @@
 import Card from "./card.js";
-import initialCards from "./initial-cards.js";
+import FormValidator from "./form-validator.js";
+import {initialCards, validationParams} from "./options.js";
 import { openPopup, closePopup } from "./popup.js";
 
 const cardTemplateSelector = ".card-template";
 const gallery = document.querySelector(".gallery");
 const popups = document.querySelectorAll(".popup");
+const modalForms = document.querySelectorAll(validationParams.formSelector);
 
 const renderGallery = (cards, cardTemplate) => {
   gallery.append(...cards.map(
@@ -74,6 +76,7 @@ const handleCardAddFormSubmit = (evt) => {
   renderCard(newCard, cardTemplateSelector);
   clearForm(cardAddForm);
   closePopup(cardAddPopup);
+  console.log(evt.target);
 }
 
 const handleCardAddOpen = () => {
@@ -103,6 +106,11 @@ const pageInit = () => {
 
   profileEditForm.addEventListener("submit", handleProfileEditFormSubmit);
   cardAddForm.addEventListener("submit", handleCardAddFormSubmit);
+
+  modalForms.forEach(modalForm => {
+    const modalFormValidator = new FormValidator(validationParams, modalForm);
+    modalFormValidator.enableValidation();
+  })
   
   renderGallery(initialCards, cardTemplateSelector);
 }

@@ -25,4 +25,13 @@ const initialCards = [
   }
 ];
 
-export default initialCards;
+const validationParams = {
+  formSelector: ".modal-form", 
+  inputSelector: ".modal-form__field", 
+  submitButtonSelector: ".modal-form__submit", 
+  inactiveButtonClass: "modal-form__submit_disabled", 
+  inputErrorClass: "modal-form__field_invalid", 
+  errorClass: "modal-form__error_visible"
+};
+
+export {initialCards, validationParams};
