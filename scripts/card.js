@@ -1,19 +1,11 @@
 import { openPopup } from "./popup.js";
 
-const bigPicture = document.querySelector(".popup_type_card-picture");
-const bigPictureImage = bigPicture.querySelector(".big-picture__image");
-const bigPictureCaption = bigPicture.querySelector(".big-picture__caption");
-
-const updateBigPicture = (name, link) => {
-  bigPictureImage.src = link;
-  bigPictureImage.alt = name;
-  bigPictureCaption.textContent = name;
-}
 class Card {
-  constructor({name, link}, cardSelector) {
+  constructor({name, link}, cardSelector, handleImageClick) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._handleImageClick = handleImageClick;
   }
 
   _getTemplateElement() {
@@ -33,11 +25,6 @@ class Card {
     this._element.remove();
   }
 
-  _handleImageClick() {
-    updateBigPicture(this._name, this._link);
-    openPopup(bigPicture);
-  }
-
   _setEventListeners() {
     this._element
       .querySelector(".card__like")
@@ -49,7 +36,7 @@ class Card {
 
     this._element
       .querySelector(".card__image")
-      .addEventListener("click", () => this._handleImageClick());
+      .addEventListener("click", () => this._handleImageClick(this._name, this._link));
   }
 
   generateCard() {

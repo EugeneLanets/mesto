@@ -11,14 +11,14 @@ const modalForms = document.querySelectorAll(validationParams.formSelector);
 const renderGallery = (cards, cardTemplate) => {
   gallery.append(...cards.map(
     ({name, link}) => {
-      const card = new Card({name, link}, cardTemplate);
+      const card = new Card({name, link}, cardTemplate, handleImageClick);
       return card.generateCard();
     })
   );
 }
 
 const renderCard = (newCard, cardTemplate) => {
-  const card = new Card(newCard, cardTemplate)
+  const card = new Card(newCard, cardTemplate, handleImageClick);
   gallery.prepend(card.generateCard());
 }
 
@@ -28,6 +28,23 @@ const renderCard = (newCard, cardTemplate) => {
 
 const clearForm = form => {
   form.reset();
+}
+
+// CARD POPUP
+
+const bigPicture = document.querySelector(".popup_type_card-picture");
+const bigPictureImage = bigPicture.querySelector(".big-picture__image");
+const bigPictureCaption = bigPicture.querySelector(".big-picture__caption");
+
+const updateBigPicture = (name, link) => {
+  bigPictureImage.src = link;
+  bigPictureImage.alt = name;
+  bigPictureCaption.textContent = name;
+}
+
+const handleImageClick = (name, link) => {
+  updateBigPicture(name, link);
+  openPopup(bigPicture);
 }
 
 // profile
