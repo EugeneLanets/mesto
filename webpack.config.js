@@ -11,9 +11,9 @@ module.exports = {
     filename: 'main.js',
         publicPath: ''
   },
-    mode: 'development',
+  mode: 'development',
+  devtool: 'inline-source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, './dist'),
     compress: true,
     port: 8080,
     open: true
