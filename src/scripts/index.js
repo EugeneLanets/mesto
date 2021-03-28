@@ -1,9 +1,9 @@
 import '../pages/index.css';
 
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import { initialCards, validationParams } from "./options.js";
-import { openPopup, closePopup } from "./popup.js";
+import Card from "./components/Card.js";
+import FormValidator from "./components/FormValidator.js";
+import { initialCards, validationParams } from "./utils/options.js";
+import { openPopup, closePopup } from "./components/popup2.js";
 
 const cardTemplateSelector = ".card-template";
 const gallery = document.querySelector(".gallery");

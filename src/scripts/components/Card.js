@@ -1,5 +1,3 @@
-import { openPopup } from "./popup.js";
-
 class Card {
   constructor({name, link}, cardSelector, handleImageClick) {
     this._name = name;
