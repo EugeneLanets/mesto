@@ -28,7 +28,7 @@ class FormValidator {
     inputElement.classList.add(inputErrorClass);
   }
   
-  _hideError = (formElement, inputElement, {inputErrorClass, errorClass}) => {
+  _hideError(formElement, inputElement, {inputErrorClass, errorClass}) {
     const errorMessageElement = formElement.querySelector(`.${inputElement.id}-error`);
   
     errorMessageElement.classList.remove(errorClass);

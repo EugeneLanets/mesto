@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto Russia</title>
 </head>
 <body>
   <div class="page">
     <header class="header">
-      <img src="./images/logo.svg" alt="Логотип Место Россия" class="header__logo">
+      <img src="<%=require('./images/logo.svg')%>" alt="Логотип Место Россия" class="header__logo">
     </header>
     <main class="page__content">
       <section class="profile">
-        <img src="./images/avatar.jpg" alt="Аватар пользователя" class="profile__avatar">
+        <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя" class="profile__avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__status">Исследователь океана</p>
@@ -75,12 +74,6 @@
       </div>
       <button type="button" class="card__delete" aria-label="Удалить карточку"></button>
     </article>
-  </template>
-  <script type="module" src="./scripts/options.js"></script>
-  <script type="module" src="./scripts/popup.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
-  <script type="module" src="./scripts/FormValidator.js"></script>
-  <script type="module" src="./scripts/index.js"></script>
-  
+  </template>  
 </body>
 </html>
