@@ -22,9 +22,8 @@ import {
 const userInfo = new UserInfo(profileNameSelector, profileStatusSelector)
 
 const imagePopup = new PopupWithImage(imagePopupSelector);
-const profilePopup = new PopupWithForm(profilePopupSelector, (evt)=>{
-  evt.preventDefault();
-  console.log("Here")
+const profilePopup = new PopupWithForm(profilePopupSelector, (newInfo)=>{
+  userInfo.setUserInfo(newInfo);
 })
 
 
