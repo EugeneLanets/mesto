@@ -17,16 +17,13 @@ import {
   validationParams,
   profilePopupSelector,
   profileEditButtonSelector,
+  addCardPopupSelector,
+  addCardButtonSelector,
 } from "./utils/constants.js";
 
-const userInfo = new UserInfo(profileNameSelector, profileStatusSelector)
-
-const imagePopup = new PopupWithImage(imagePopupSelector);
-const profilePopup = new PopupWithForm(profilePopupSelector, (newInfo)=>{
-  userInfo.setUserInfo(newInfo);
-})
-
-
+const profileEditButton = document.querySelector(profileEditButtonSelector);
+const addCardButton = document.querySelector(addCardButtonSelector);
+const modalForms = document.querySelectorAll(validationParams.formSelector);
 
 const gallery = new Section({
   items: initialCards,
@@ -38,12 +35,43 @@ const gallery = new Section({
   }, 
   gallerySelector);
 
-const profileEditButton = document.querySelector(profileEditButtonSelector);
+const userInfo = new UserInfo(profileNameSelector, profileStatusSelector)
 
-gallery.renderItems();
-imagePopup.setEventListeners();
-profilePopup.setEventListeners();
-profileEditButton.addEventListener("click", () => {
-  profilePopup.setInputValues(userInfo.getUserInfo());
-  profilePopup.open()
+const imagePopup = new PopupWithImage(imagePopupSelector);
+
+const profilePopup = new PopupWithForm(profilePopupSelector, (newInfo) => {
+  userInfo.setUserInfo(newInfo);
 });
+
+const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, info}) => {
+  const card = new Card({name, link: info}, cardTemplateSelector, () => {imagePopup.open(name, link)});
+  gallery.addItem(card.generateCard());
+
+});
+
+
+
+
+const pageInit = () => {
+  gallery.renderItems();
+
+  imagePopup.setEventListeners();
+  profilePopup.setEventListeners();
+  addCardPopup.setEventListeners();
+
+  profileEditButton.addEventListener("click", () => {
+    profilePopup.setInputValues(userInfo.getUserInfo());
+    profilePopup.open()
+  });
+
+  addCardButton.addEventListener("click", () => {
+    addCardPopup.open();
+  });
+
+  modalForms.forEach(modalForm => {
+    const modalFormValidator = new FormValidator(validationParams, modalForm);
+    modalFormValidator.enableValidation();
+  });
+}
+
+pageInit();

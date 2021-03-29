@@ -3,10 +3,13 @@ export const cardTemplateSelector = ".card-template";
 
 export const imagePopupSelector = ".popup_type_card-picture";
 export const profilePopupSelector = ".popup_type_profile-edit";
+export const addCardPopupSelector = ".popup_type_card-add";
 
 export const profileEditButtonSelector = ".profile__button_type_edit";
 export const profileNameSelector = ".profile__name";
 export const profileStatusSelector = ".profile__status";
+
+export const addCardButtonSelector = ".profile__button_type_add";
 
 
 export const initialCards = [
