@@ -13,12 +13,12 @@ import {
   imagePopupSelector,
   profileNameSelector, 
   profileStatusSelector,
-  initialCards, 
-  validationParams,
   profilePopupSelector,
   profileEditButtonSelector,
   addCardPopupSelector,
   addCardButtonSelector,
+  initialCards, 
+  validationParams,
 } from "./utils/constants.js";
 
 const profileEditButton = document.querySelector(profileEditButtonSelector);
