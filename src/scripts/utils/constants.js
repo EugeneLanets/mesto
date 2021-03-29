@@ -1,4 +1,8 @@
-const initialCards = [
+export const gallerySelector = ".gallery";
+export const cardTemplateSelector = ".card-template";
+export const imagePopupSelector = ".popup_type_card-picture";
+
+export const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -25,7 +29,7 @@ const initialCards = [
   }
 ];
 
-const validationParams = {
+export const validationParams = {
   formSelector: ".modal-form", 
   inputSelector: ".modal-form__field", 
   submitButtonSelector: ".modal-form__submit", 
@@ -33,5 +37,3 @@ const validationParams = {
   inputErrorClass: "modal-form__field_invalid", 
   errorClass: "modal-form__error_visible"
 };
-
-export {initialCards, validationParams};
