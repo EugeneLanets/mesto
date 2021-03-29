@@ -3,17 +3,31 @@ import '../pages/index.css';
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 import PopupWithImage from './components/PopupWiithImage';
+import PopupWithForm from './components/PopupWithForm';
 import Section from './components/Section';
+import UserInfo from './components/UserInfo';
 
 import { 
   gallerySelector, 
-  cardTemplateSelector, 
+  cardTemplateSelector,  
+  imagePopupSelector,
+  profileNameSelector, 
+  profileStatusSelector,
   initialCards, 
-  validationParams, 
-  imagePopupSelector
+  validationParams,
+  profilePopupSelector,
+  profileEditButtonSelector,
 } from "./utils/constants.js";
 
+const userInfo = new UserInfo(profileNameSelector, profileStatusSelector)
+
 const imagePopup = new PopupWithImage(imagePopupSelector);
+const profilePopup = new PopupWithForm(profilePopupSelector, (evt)=>{
+  evt.preventDefault();
+  console.log("Here")
+})
+
+
 
 const gallery = new Section({
   items: initialCards,
@@ -22,8 +36,15 @@ const gallery = new Section({
       const card = new Card({name, link}, cardTemplateSelector, () => {imagePopup.open(name, link)});
       return card.generateCard();
     }
-  }, gallerySelector);
+  }, 
+  gallerySelector);
 
-
+const profileEditButton = document.querySelector(profileEditButtonSelector);
 
 gallery.renderItems();
+imagePopup.setEventListeners();
+profilePopup.setEventListeners();
+profileEditButton.addEventListener("click", () => {
+  profilePopup.setInputValues(userInfo.getUserInfo());
+  profilePopup.open()
+});

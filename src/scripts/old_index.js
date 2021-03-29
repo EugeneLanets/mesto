@@ -1,61 +1,13 @@
 import '../pages/index.css';
 
-import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
-import { initialCards, validationParams } from "./utils/options.js";
-import { openPopup, closePopup } from "./components/popup2.js";
+import {validationParams } from "./utils/constants.js";
 
-const cardTemplateSelector = ".card-template";
-const gallery = document.querySelector(".gallery");
-const popups = document.querySelectorAll(".popup");
 const modalForms = document.querySelectorAll(validationParams.formSelector);
-
-const renderGallery = (cards, cardTemplate) => {
-  gallery.append(...cards.map(
-    ({name, link}) => {
-      const card = new Card({name, link}, cardTemplate, handleImageClick);
-      return card.generateCard();
-    })
-  );
-}
-
-const renderCard = (newCard, cardTemplate) => {
-  const card = new Card(newCard, cardTemplate, handleImageClick);
-  gallery.prepend(card.generateCard());
-}
-
-
-
-// MODAL
-
-const clearForm = form => {
-  form.reset();
-}
-
-// CARD POPUP
-
-const bigPicture = document.querySelector(".popup_type_card-picture");
-const bigPictureImage = bigPicture.querySelector(".big-picture__image");
-const bigPictureCaption = bigPicture.querySelector(".big-picture__caption");
-
-const updateBigPicture = (name, link) => {
-  bigPictureImage.src = link;
-  bigPictureImage.alt = name;
-  bigPictureCaption.textContent = name;
-}
-
-const handleImageClick = (name, link) => {
-  updateBigPicture(name, link);
-  openPopup(bigPicture);
-}
 
 // profile
 const profileEditButton = document.querySelector(".profile__button_type_edit");
-const profileName = document.querySelector(".profile__name");
-const profileStatus = document.querySelector(".profile__status");
 
-const profileEditPopup = document.querySelector(".popup_type_profile-edit");
-const profileEditForm = profileEditPopup.querySelector(".modal-form");
 const [profileNameField, profileStatusField] = profileEditForm.querySelectorAll("input");
 
 const fillProfileEditFormFields = () => {
@@ -108,17 +60,6 @@ const handleCardAddOpen = () => {
 
 const pageInit = () => {
   fillProfileEditFormFields();
-  popups.forEach((popup) => {
-    popup.addEventListener("click", (evt) => {
-      if (evt.target.classList.contains("popup_opened")) {
-        closePopup(popup);
-      }
-  
-      if (evt.target.classList.contains("popup__close-button")) {
-        closePopup(popup);
-      }
-    })
-  });
 
   profileEditButton.addEventListener("click", handleProfileEditOpen);
   cardAddButton.addEventListener("click", handleCardAddOpen);
@@ -131,7 +72,6 @@ const pageInit = () => {
     modalFormValidator.enableValidation();
   })
   
-  renderGallery(initialCards, cardTemplateSelector);
 }
 
 pageInit();
