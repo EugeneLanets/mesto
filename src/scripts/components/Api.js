@@ -31,6 +31,21 @@ class Api {
     return this._get("cards");
   }
 
+  updateUserInfo({name, about}) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({name, about})
+    })
+    .then(response => {
+      if (response.ok) { 
+        return response.json();
+      }
+
+      return Promise.reject(`Ошибка: ${response.status}`);
+    })
+  }
+
 }
 
 export default Api;

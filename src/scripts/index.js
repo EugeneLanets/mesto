@@ -34,8 +34,15 @@ const avatarElement = new Avatar(".profile__avatar");
 
 const imagePopup = new PopupWithImage(imagePopupSelector);
 
-const profilePopup = new PopupWithForm(profilePopupSelector, (newInfo) => {
-  userInfo.setUserInfo(newInfo);
+const profilePopup = new PopupWithForm(profilePopupSelector, ({name, info}) => {
+  api.updateUserInfo({name, about: info})
+    .then(({name, about}) => {
+      userInfo.setUserInfo({name, info: about});
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
 });
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, info}) => {
