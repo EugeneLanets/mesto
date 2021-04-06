@@ -1,7 +1,7 @@
-.card__info {
-  padding: 22px 15px 22px 21px;
+.card__like-section {
   display: flex;
+  flex-direction: column;
+  margin-left: 20px;
   justify-content: space-between;
   align-items: center;
-  max-height: 100%;
 }

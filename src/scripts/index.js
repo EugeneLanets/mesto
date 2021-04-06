@@ -71,8 +71,8 @@ const getDataFromServer = () => {
     gallery = new Section({
       items: initialCards,
       renderer: 
-        ({name, link}) => {
-          const card = new Card({name, link}, cardTemplateSelector, () => {imagePopup.open(name, link)});
+        ({name, link, likes}) => {
+          const card = new Card({name, link, likes}, cardTemplateSelector, () => {imagePopup.open(name, link)});
           return card.generateCard();
         }
       }, 

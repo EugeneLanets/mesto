@@ -1,7 +1,7 @@
-.card__like {
+.card__like-button {
   width: 22px;
   height: 19px;
-  margin-left: 20px;
+  margin-bottom: 3px;
   background-color: transparent;
   border: none;
   background-image: url("../../../images/like.svg");
@@ -11,14 +11,14 @@
   flex-shrink: 0;
 }
 
-.card__like:hover,
-.card__like:focus {
+.card__like-button:hover,
+.card__like-button:focus {
   outline: none;
   cursor: pointer;
   opacity: 0.5;
 }
 
-.card__like:active {
+.card__like-button:active {
   background-image: url("../../../images/like__active.svg");
   opacity: 1;
 }
