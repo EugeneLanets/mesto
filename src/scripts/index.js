@@ -34,10 +34,10 @@ const avatarElement = new Avatar(".profile__avatar");
 
 const imagePopup = new PopupWithImage(imagePopupSelector);
 
-const profilePopup = new PopupWithForm(profilePopupSelector, ({name, info}) => {
-  api.updateUserInfo({name, about: info})
+const profilePopup = new PopupWithForm(profilePopupSelector, ({name, about}) => {
+  api.updateUserInfo({name, about})
     .then(({name, about}) => {
-      userInfo.setUserInfo({name, info: about});
+      userInfo.setUserInfo({name, about});
     })
     .catch(err => {
       console.log(err);
@@ -46,8 +46,20 @@ const profilePopup = new PopupWithForm(profilePopupSelector, ({name, info}) => {
 });
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, info}) => {
-  const card = new Card({name, link: info}, cardTemplateSelector, () => {imagePopup.open(name, link)});
-  gallery.addItem(card.generateCard());
+  api.addCard({name, link: info})
+    .then(({name, link}) => {
+      const card = new Card({
+        name, link: info}, 
+        cardTemplateSelector, 
+        () => {imagePopup.open(name, link)
+      });
+      gallery.addItem(card.generateCard());
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  
+  
 
 });
 
@@ -74,7 +86,7 @@ const getDataFromServer = () => {
 
   api.getUserInfo()
     .then(({name, about, avatar}) => {
-      userInfo.setUserInfo({name, info: about});
+      userInfo.setUserInfo({name, about});
       avatarElement.setAvatar(avatar);
     })
     .catch(err => {

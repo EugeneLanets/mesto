@@ -7,12 +7,12 @@ export default class UserInfo {
   getUserInfo() {
     return {
       name: this._name.textContent,
-      info: this._info.textContent
+      about: this._info.textContent
     }
   }
 
-  setUserInfo({name, info}) {
+  setUserInfo({name, about}) {
     this._name.textContent = name;
-    this._info.textContent = info;
+    this._info.textContent = about;
   }
 }

@@ -46,6 +46,21 @@ class Api {
     })
   }
 
+  addCard({name, link}) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({name, link})
+    })
+    .then(response => {
+      if (response.ok) { 
+        return response.json();
+      }
+
+      return Promise.reject(`Ошибка: ${response.status}`);
+    })
+  }
+
 }
 
 export default Api;
