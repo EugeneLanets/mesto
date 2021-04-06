@@ -1,4 +1,6 @@
 import '../pages/index.css';
+import Api from './components/Api.js';
+import Avatar from './components/Avatar.js';
 
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
@@ -17,25 +19,18 @@ import {
   profileEditButtonSelector,
   addCardPopupSelector,
   addCardButtonSelector,
-  initialCards, 
   validationParams,
+  apiParams,
 } from "./utils/constants.js";
+
+let gallery;
 
 const profileEditButton = document.querySelector(profileEditButtonSelector);
 const addCardButton = document.querySelector(addCardButtonSelector);
 const modalForms = document.querySelectorAll(validationParams.formSelector);
 
-const gallery = new Section({
-  items: initialCards,
-  renderer: 
-    ({name, link}) => {
-      const card = new Card({name, link}, cardTemplateSelector, () => {imagePopup.open(name, link)});
-      return card.generateCard();
-    }
-  }, 
-  gallerySelector);
-
-const userInfo = new UserInfo(profileNameSelector, profileStatusSelector)
+const userInfo = new UserInfo(profileNameSelector, profileStatusSelector);
+const avatarElement = new Avatar(".profile__avatar");
 
 const imagePopup = new PopupWithImage(imagePopupSelector);
 
@@ -49,11 +44,39 @@ const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, info}) => {
 
 });
 
+const api = new Api(apiParams);
 
+const getDataFromServer = () => {
+  api.getInitialCards()
+  .then(initialCards => {
+    gallery = new Section({
+      items: initialCards,
+      renderer: 
+        ({name, link}) => {
+          const card = new Card({name, link}, cardTemplateSelector, () => {imagePopup.open(name, link)});
+          return card.generateCard();
+        }
+      }, 
+      gallerySelector);
 
+    gallery.renderItems();
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+  api.getUserInfo()
+    .then(({name, about, avatar}) => {
+      userInfo.setUserInfo({name, info: about});
+      avatarElement.setAvatar(avatar);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+} 
 
 const pageInit = () => {
-  gallery.renderItems();
+  getDataFromServer();
 
   imagePopup.setEventListeners();
   profilePopup.setEventListeners();
