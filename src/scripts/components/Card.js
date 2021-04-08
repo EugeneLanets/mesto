@@ -1,10 +1,11 @@
 class Card {
-  constructor({name, link, likes}, cardSelector, handleImageClick) {
+  constructor({name, link, likes, owner}, cardSelector, handleImageClick, userId) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._likes = likes || [];
+    this._IsOwnedByUser = owner._id === userId;
   }
 
   _getTemplateElement() {
@@ -29,9 +30,11 @@ class Card {
       .querySelector(".card__like-button")
       .addEventListener("click", this._handleLikeButton);
 
-    this._element
-      .querySelector(".card__delete")
-      .addEventListener("click", () => this._handleDeleteButton());
+    if (this._IsOwnedByUser) {
+      this._element
+        .querySelector(".card__delete")
+        .addEventListener("click", () => this._handleDeleteButton());
+    }
 
     this._element
       .querySelector(".card__image")
@@ -43,6 +46,9 @@ class Card {
     const image = this._element.querySelector(".card__image");
     const title = this._element.querySelector(".card__text");
     const likeCounter = this._element.querySelector(".card__like-counter");
+    const deleteButton = this._element.querySelector(".card__delete");
+
+    if (!this._IsOwnedByUser) deleteButton.remove();
 
     image.src = this._link;
     image.alt = this._name;

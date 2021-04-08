@@ -47,11 +47,11 @@ const profilePopup = new PopupWithForm(profilePopupSelector, ({name, about}) => 
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, info}) => {
   api.addCard({name, link: info})
-    .then(({name, link}) => {
-      const card = new Card({
-        name, link: info}, 
+    .then((cardInfo) => {
+      const card = new Card(cardInfo, 
         cardTemplateSelector, 
-        () => {imagePopup.open(name, link)
+        () => {imagePopup.open(cardInfo.name, cardInfo.link),
+        userInfo.getUserId()
       });
       gallery.addItem(card.generateCard());
     })
@@ -66,13 +66,22 @@ const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, info}) => {
 const api = new Api(apiParams);
 
 const getDataFromServer = () => {
+  api.getUserInfo()
+    .then(({name, about, avatar, _id}) => {
+      userInfo.setUserInfo({name, about, _id});
+      avatarElement.setAvatar(avatar);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    
   api.getInitialCards()
   .then(initialCards => {
     gallery = new Section({
       items: initialCards,
       renderer: 
-        ({name, link, likes}) => {
-          const card = new Card({name, link, likes}, cardTemplateSelector, () => {imagePopup.open(name, link)});
+        (cardData) => {
+          const card = new Card(cardData, cardTemplateSelector, () => {imagePopup.open(cardData.name, cardData.link)}, userInfo.getUserId());
           return card.generateCard();
         }
       }, 
@@ -84,14 +93,7 @@ const getDataFromServer = () => {
     console.log(err);
   });
 
-  api.getUserInfo()
-    .then(({name, about, avatar}) => {
-      userInfo.setUserInfo({name, about});
-      avatarElement.setAvatar(avatar);
-    })
-    .catch(err => {
-      console.log(err);
-    })
+  
 } 
 
 const pageInit = () => {
