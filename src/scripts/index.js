@@ -51,7 +51,8 @@ const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, info}) => {
       const card = new Card(cardInfo, 
         cardTemplateSelector, 
         () => {imagePopup.open(cardInfo.name, cardInfo.link),
-        userInfo.getUserId()
+        () => api.deleteCard(cardData._id),
+        userInfo.getUserId();
       });
       gallery.addItem(card.generateCard());
     })
@@ -65,39 +66,37 @@ const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, info}) => {
 
 const api = new Api(apiParams);
 
-const getDataFromServer = () => {
-  api.getUserInfo()
-    .then(({name, about, avatar, _id}) => {
-      userInfo.setUserInfo({name, about, _id});
-      avatarElement.setAvatar(avatar);
+const getInitialData = () => {
+  Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([userData, initialCards]) => {
+      userInfo.setUserInfo(userData);
+      avatarElement.setAvatar(userData.avatar);
+      gallery = new Section({
+        items: initialCards,
+        renderer: 
+          (cardData) => {
+            const card = new Card(
+              cardData, 
+              cardTemplateSelector, 
+              () => {imagePopup.open(cardData.name, cardData.link)}, 
+              () => api.deleteCard(cardData._id),
+              userInfo.getUserId()
+            );
+  
+            return card.generateCard();
+          }
+        }, 
+        gallerySelector);
+  
+      gallery.renderItems();
     })
     .catch(err => {
       console.log(err);
-    })
-    
-  api.getInitialCards()
-  .then(initialCards => {
-    gallery = new Section({
-      items: initialCards,
-      renderer: 
-        (cardData) => {
-          const card = new Card(cardData, cardTemplateSelector, () => {imagePopup.open(cardData.name, cardData.link)}, userInfo.getUserId());
-          return card.generateCard();
-        }
-      }, 
-      gallerySelector);
-
-    gallery.renderItems();
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-  
+    })  
 } 
 
 const pageInit = () => {
-  getDataFromServer();
+  getInitialData();
 
   imagePopup.setEventListeners();
   profilePopup.setEventListeners();

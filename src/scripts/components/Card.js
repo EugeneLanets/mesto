@@ -1,11 +1,12 @@
 class Card {
-  constructor({name, link, likes, owner}, cardSelector, handleImageClick, userId) {
+  constructor({name, link, likes, owner}, cardSelector, handleImageClick, handleCardDelete, userId) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._likes = likes || [];
     this._IsOwnedByUser = owner._id === userId;
+    this._handleCardDelete = handleCardDelete;
   }
 
   _getTemplateElement() {
@@ -22,7 +23,16 @@ class Card {
   }
 
   _handleDeleteButton() {
-    this._element.remove();
+    this._handleCardDelete()
+      .then(() => {
+        console.log
+        this._element.remove();
+        }
+      )
+      .catch(err => {
+        console.log(err);
+      })
+   
   }
 
   _setEventListeners() {
