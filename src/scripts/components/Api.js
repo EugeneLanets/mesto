@@ -61,8 +61,8 @@ class Api {
     })
   }
 
-  deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
+  _delete(urlOptions, id) {
+    return fetch(`${this._baseUrl}/${urlOptions}/${id}`, {
       method: "DELETE",
       headers: {
         authorization: this._headers.authorization
@@ -71,6 +71,26 @@ class Api {
     .then(response => {
       if (response.ok) { 
         return Promise.resolve(`Удалено успешно: ${response.status}`)
+      }
+
+      return Promise.reject(`Ошибка: ${response.status}`);
+    })
+  }
+
+  deleteCard(id) {
+    return this._delete("cards", id);
+  }
+
+  addLike(id) {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+      method: "PUT",
+      headers: {
+        authorization: this._headers.authorization
+      }
+    })
+    .then(response => {
+      if (response.ok) { 
+        return response.json();
       }
 
       return Promise.reject(`Ошибка: ${response.status}`);

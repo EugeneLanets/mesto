@@ -84,6 +84,7 @@ const createCard = (cardData) => {
     () => {
       deleteCardPopup.open(card);
     },
+    () => console.log("hi"),
     userInfo.getUserId()
   );
 
@@ -93,7 +94,9 @@ const createCard = (cardData) => {
 const getInitialData = () => {
   Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userData, initialCards]) => {
+      
       userInfo.setUserInfo(userData);
+      
       avatarElement.setAvatar(userData.avatar);
       
       gallery = new Section({
