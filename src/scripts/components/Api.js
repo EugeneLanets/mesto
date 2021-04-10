@@ -61,8 +61,8 @@ class Api {
     })
   }
 
-  _delete(urlOptions, id) {
-    return fetch(`${this._baseUrl}/${urlOptions}/${id}`, {
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: {
         authorization: this._headers.authorization
@@ -77,13 +77,9 @@ class Api {
     })
   }
 
-  deleteCard(id) {
-    return this._delete("cards", id);
-  }
-
-  addLike(id) {
+  toggleLike(id, method) {
     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-      method: "PUT",
+      method,
       headers: {
         authorization: this._headers.authorization
       }

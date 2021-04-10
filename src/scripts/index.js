@@ -80,11 +80,20 @@ const createCard = (cardData) => {
   const card = new Card(
     cardData, 
     cardTemplateSelector, 
+    // handleImageClick
     () => {imagePopup.open(cardData.name, cardData.link)}, 
+    // handleCardDelete
     () => {
       deleteCardPopup.open(card);
     },
-    () => console.log("hi"),
+    // handleCardLike
+    (evt) => {
+      const method = 
+        evt.target.classList.contains("card__like-button_active")
+        ? "DELETE"
+        : "PUT";
+      return api.toggleLike(card.getId(), method);
+    },
     userInfo.getUserId()
   );
 
