@@ -31,11 +31,11 @@ class Api {
     return this._get("cards");
   }
 
-  updateUserInfo({name, about}) {
-    return fetch(`${this._baseUrl}/users/me`, {
+  _update(urlOptions, newData) {
+    return fetch(`${this._baseUrl}/${urlOptions}`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({name, about})
+      body: JSON.stringify(newData)
     })
     .then(response => {
       if (response.ok) { 
@@ -44,6 +44,14 @@ class Api {
 
       return Promise.reject(`Ошибка: ${response.status}`);
     })
+  }
+
+  updateUserInfo(newData) {
+    return this._update("users/me", newData);
+  }
+
+  updateAvatar(newData) {
+    return this._update("users/me/avatar", newData)
   }
 
   addCard({name, link}) {

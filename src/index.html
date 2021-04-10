@@ -12,7 +12,9 @@
     </header>
     <main class="page__content">
       <section class="profile">
-        <img src="#" alt="Аватар пользователя" class="profile__avatar">
+        <div class="profile__avatar">  
+          <img src="#" alt="Аватар пользователя" class="profile__avatar-image">
+        </div>
         <div class="profile__info">
           <h1 class="profile__name"></h1>
           <p class="profile__status"></p>
@@ -57,9 +59,22 @@
 
     <div class="popup popup_type_card-delete">
       <div class="popup__container">
-        <form class="modal-form" name="profile-edit" novalidate>
+        <form class="modal-form" name="card-delete" novalidate>
           <h2 class="modal-form__title">Вы уверены?</h2>
           <button type="submit" class="button modal-form__submit">Да</button>
+        </form>
+        <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
+      </div>
+    </div>
+
+    <div class="popup popup_type_avatar-update">
+      <div class="popup__container">
+        <form class="modal-form" name="update-avatar" novalidate>
+          <h2 class="modal-form__title">Обновить аватар</h2>
+          <input type="hidden" name="card-name" class="modal-form__field">
+          <input type="url" name="link" class="modal-form__field" placeholder="Сcылка на картинку" id="card-add-link" required>
+          <p class="modal-form__error card-add-link-error"></p>
+          <button type="submit" class="button modal-form__submit">Сохранить</button>
         </form>
         <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
       </div>
@@ -75,6 +90,7 @@
       </div>
     </div>
   </div>
+
   <template class="card-template">
     <article class="card">
       <img src="#" alt=" " class="card__image">

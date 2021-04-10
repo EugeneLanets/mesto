@@ -22,6 +22,9 @@ import {
   addCardButtonSelector,
   validationParams,
   apiParams,
+  avatarImgSelector,
+  avatarBlockSelector,
+  updateAvatarPopupSelector,
 } from "./utils/constants.js";
 
 let gallery;
@@ -29,9 +32,10 @@ let gallery;
 const profileEditButton = document.querySelector(profileEditButtonSelector);
 const addCardButton = document.querySelector(addCardButtonSelector);
 const modalForms = document.querySelectorAll(validationParams.formSelector);
+const avatarChangeBlock = document.querySelector(avatarBlockSelector);
 
 const userInfo = new UserInfo(profileNameSelector, profileStatusSelector);
-const avatarElement = new Avatar(".profile__avatar");
+const avatarElement = new Avatar(avatarImgSelector);
 
 const imagePopup = new PopupWithImage(imagePopupSelector);
 
@@ -46,8 +50,8 @@ const profilePopup = new PopupWithForm(profilePopupSelector, ({name, about}) => 
   profilePopup.close();
 });
 
-const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, info}) => {
-  api.addCard({name, link: info})
+const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, about}) => {
+  api.addCard({name, link: about})
     .then((cardData) => {
       const card = createCard(cardData);
       gallery.addItem(card);
@@ -73,6 +77,20 @@ const deleteCardPopup = new PopupWithForm(
       })
   }
 )
+
+const updateAvatarPopup = new PopupWithForm(
+  updateAvatarPopupSelector,
+  ({about}) => {
+    api.updateAvatar({avatar: about})
+      .then(({avatar}) => {
+        avatarElement.setAvatar(avatar)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    updateAvatarPopup.close();
+  }
+);
 
 const api = new Api(apiParams);
 
@@ -105,7 +123,6 @@ const getInitialData = () => {
     .then(([userData, initialCards]) => {
       
       userInfo.setUserInfo(userData);
-      
       avatarElement.setAvatar(userData.avatar);
       
       gallery = new Section({
@@ -129,6 +146,7 @@ const pageInit = () => {
   profilePopup.setEventListeners();
   addCardPopup.setEventListeners();
   deleteCardPopup.setEventListeners();
+  updateAvatarPopup.setEventListeners();
 
   profileEditButton.addEventListener("click", () => {
     profilePopup.setInputValues(userInfo.getUserInfo());
@@ -138,6 +156,10 @@ const pageInit = () => {
   addCardButton.addEventListener("click", () => {
     addCardPopup.open();
   });
+
+  avatarChangeBlock.addEventListener("click", () => {
+    updateAvatarPopup.open();
+  })
 
   modalForms.forEach(modalForm => {
     const modalFormValidator = new FormValidator(validationParams, modalForm);

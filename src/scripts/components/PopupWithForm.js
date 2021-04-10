@@ -10,20 +10,20 @@ export default class PopupWithForm extends Popup {
 
   _getInputValues() {
     const name = this._nameField.value;
-    const info = this._infoField.value;
-    return {name, info};
+    const about = this._infoField.value;
+    return {name, about};
   }
 
-  setInputValues({name, info}) {
+  setInputValues({name, about}) {
     this._nameField.value = name;
-    this._infoField.value = info;
+    this._infoField.value = about;
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._handleFormSubmit(this._itemToDelete || this._getInputValues());
+      this._handleFormSubmit(this._itemToDelete ? this._itemToDelete : this._getInputValues());
     });
   }
 

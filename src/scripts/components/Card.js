@@ -10,10 +10,10 @@ class Card {
     this._link = link;
     this._likes = likes;
     this._id = _id;
+    this._owner = owner;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._userId = userId;
-    this._owner = owner;
     this._handleCardDelete = handleCardDelete;
     this._handleCardLike = handleCardLike;
   }
@@ -32,6 +32,7 @@ class Card {
         evt.target.classList.remove("card__like-button_active");
         this._likes = likes;
         this._updateLikes();
+        evt.target.blur();
       })
       .catch(err => {
         console.log(err);

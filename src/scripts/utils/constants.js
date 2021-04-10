@@ -5,10 +5,14 @@ export const imagePopupSelector = ".popup_type_card-picture";
 export const profilePopupSelector = ".popup_type_profile-edit";
 export const addCardPopupSelector = ".popup_type_card-add";
 export const deleteCardPopupSelector = ".popup_type_card-delete";
+export const updateAvatarPopupSelector =".popup_type_avatar-update";
 
 export const profileEditButtonSelector = ".profile__button_type_edit";
 export const profileNameSelector = ".profile__name";
 export const profileStatusSelector = ".profile__status";
+
+export const avatarBlockSelector = ".profile__avatar";
+export const avatarImgSelector = ".profile__avatar-image";
 
 export const addCardButtonSelector = ".profile__button_type_add";
 

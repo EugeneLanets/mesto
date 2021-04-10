@@ -32,11 +32,13 @@ class FormValidator {
   
   _hideError(inputElement, {inputErrorClass, errorClass}) {
     const errorMessageElement = this._formElement.querySelector(`.${inputElement.id}-error`);
-  
-    errorMessageElement.classList.remove(errorClass);
-    errorMessageElement.textContent = "";
-  
-    inputElement.classList.remove(inputErrorClass);
+    
+    if (errorMessageElement) {
+      errorMessageElement.classList.remove(errorClass);
+      errorMessageElement.textContent = "";
+    
+      inputElement.classList.remove(inputErrorClass);
+    }
   }
 
   _checkInputValidity(inputElement) {
