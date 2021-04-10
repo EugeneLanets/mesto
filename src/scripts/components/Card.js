@@ -1,10 +1,18 @@
 class Card {
-  constructor({name, link, likes, owner}, cardSelector, handleImageClick, handleCardDelete, userId) {
+  constructor(
+      {name, link, likes, owner, _id}, 
+      cardSelector, 
+      handleImageClick, 
+      handleCardDelete, 
+      userId) {
+    
     this._name = name;
     this._link = link;
+    this._likes = likes || [];
+    this._id = _id;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
-    this._likes = likes || [];
+  
     this._IsOwnedByUser = owner._id === userId;
     this._handleCardDelete = handleCardDelete;
   }
@@ -22,19 +30,6 @@ class Card {
     evt.target.blur();
   }
 
-  _handleDeleteButton() {
-    this._handleCardDelete()
-      .then(() => {
-        console.log
-        this._element.remove();
-        }
-      )
-      .catch(err => {
-        console.log(err);
-      })
-   
-  }
-
   _setEventListeners() {
     this._element
       .querySelector(".card__like-button")
@@ -43,12 +38,20 @@ class Card {
     if (this._IsOwnedByUser) {
       this._element
         .querySelector(".card__delete")
-        .addEventListener("click", () => this._handleDeleteButton());
+        .addEventListener("click", () => this._handleCardDelete());
     }
 
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () => this._handleImageClick(this._name, this._link));
+  }
+
+  remove() {
+    this._element.remove();
+  }
+
+  getId() {
+    return this._id;
   }
 
   generateCard() {

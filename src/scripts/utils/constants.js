@@ -4,6 +4,7 @@ export const cardTemplateSelector = ".card-template";
 export const imagePopupSelector = ".popup_type_card-picture";
 export const profilePopupSelector = ".popup_type_profile-edit";
 export const addCardPopupSelector = ".popup_type_card-add";
+export const deleteCardPopupSelector = ".popup_type_card-delete";
 
 export const profileEditButtonSelector = ".profile__button_type_edit";
 export const profileNameSelector = ".profile__name";

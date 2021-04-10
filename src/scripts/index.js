@@ -13,6 +13,7 @@ import {
   gallerySelector, 
   cardTemplateSelector,  
   imagePopupSelector,
+  deleteCardPopupSelector,
   profileNameSelector, 
   profileStatusSelector,
   profilePopupSelector,
@@ -42,49 +43,63 @@ const profilePopup = new PopupWithForm(profilePopupSelector, ({name, about}) => 
     .catch(err => {
       console.log(err);
     })
-
+  profilePopup.close();
 });
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, info}) => {
   api.addCard({name, link: info})
-    .then((cardInfo) => {
-      const card = new Card(cardInfo, 
-        cardTemplateSelector, 
-        () => {imagePopup.open(cardInfo.name, cardInfo.link),
-        () => api.deleteCard(cardData._id),
-        userInfo.getUserId();
-      });
-      gallery.addItem(card.generateCard());
+    .then((cardData) => {
+      const card = createCard(cardData);
+      gallery.addItem(card);
     })
     .catch(err => {
       console.log(err);
     })
-  
-  
-
+  addCardPopup.close();
 });
 
+const deleteCardPopup = new PopupWithForm(
+  deleteCardPopupSelector,
+  (item) => {
+    api.deleteCard(item.getId())
+      .then(() => {
+        item.remove()
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        deleteCardPopup.close();
+      })
+  }
+)
+
 const api = new Api(apiParams);
+
+const createCard = (cardData) => {
+  const card = new Card(
+    cardData, 
+    cardTemplateSelector, 
+    () => {imagePopup.open(cardData.name, cardData.link)}, 
+    () => {
+      deleteCardPopup.open(card);
+    },
+    userInfo.getUserId()
+  );
+
+  return card.generateCard();
+}
 
 const getInitialData = () => {
   Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userData, initialCards]) => {
       userInfo.setUserInfo(userData);
       avatarElement.setAvatar(userData.avatar);
+      
       gallery = new Section({
         items: initialCards,
         renderer: 
-          (cardData) => {
-            const card = new Card(
-              cardData, 
-              cardTemplateSelector, 
-              () => {imagePopup.open(cardData.name, cardData.link)}, 
-              () => api.deleteCard(cardData._id),
-              userInfo.getUserId()
-            );
-  
-            return card.generateCard();
-          }
+          createCard
         }, 
         gallerySelector);
   
@@ -101,6 +116,7 @@ const pageInit = () => {
   imagePopup.setEventListeners();
   profilePopup.setEventListeners();
   addCardPopup.setEventListeners();
+  deleteCardPopup.setEventListeners();
 
   profileEditButton.addEventListener("click", () => {
     profilePopup.setInputValues(userInfo.getUserInfo());
