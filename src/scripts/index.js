@@ -25,6 +25,7 @@ import {
   avatarImgSelector,
   avatarBlockSelector,
   updateAvatarPopupSelector,
+  submitLoadingText,
 } from "./utils/constants.js";
 
 let gallery;
@@ -40,6 +41,7 @@ const avatarElement = new Avatar(avatarImgSelector);
 const imagePopup = new PopupWithImage(imagePopupSelector);
 
 const profilePopup = new PopupWithForm(profilePopupSelector, ({name, about}) => {
+  profilePopup.setSubmitText(submitLoadingText);
   api.updateUserInfo({name, about})
     .then(({name, about}) => {
       userInfo.setUserInfo({name, about});
@@ -47,10 +49,15 @@ const profilePopup = new PopupWithForm(profilePopupSelector, ({name, about}) => 
     .catch(err => {
       console.log(err);
     })
+    .finally(() => {
+      profilePopup.resetSubmitText();
+    })
   profilePopup.close();
 });
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, about}) => {
+  addCardPopup.setSubmitText(submitLoadingText);
+  
   api.addCard({name, link: about})
     .then((cardData) => {
       const card = createCard(cardData);
@@ -58,6 +65,9 @@ const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, about}) => 
     })
     .catch(err => {
       console.log(err);
+    })
+    .finally(() => {
+      addCardPopup.resetSubmitText();
     })
   addCardPopup.close();
 });
@@ -81,12 +91,16 @@ const deleteCardPopup = new PopupWithForm(
 const updateAvatarPopup = new PopupWithForm(
   updateAvatarPopupSelector,
   ({about}) => {
+    updateAvatarPopup.setSubmitText(submitLoadingText);
     api.updateAvatar({avatar: about})
       .then(({avatar}) => {
         avatarElement.setAvatar(avatar)
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        updateAvatarPopup.resetSubmitText();
       })
     updateAvatarPopup.close();
   }

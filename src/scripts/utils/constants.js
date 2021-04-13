@@ -16,6 +16,8 @@ export const avatarImgSelector = ".profile__avatar-image";
 
 export const addCardButtonSelector = ".profile__button_type_add";
 
+export const submitLoadingText = "Сохранение";
+
 
 export const apiParams = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-22',
