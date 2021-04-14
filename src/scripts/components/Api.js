@@ -8,19 +8,21 @@ class Api {
 
   }
 
+  _handleResponse(response) {
+    if (response.ok) {
+      return response.json()
+    }
+
+    return Promise.reject(`Ошибка: ${response.status}`);
+  }
+
   _get(urlOptions) {
     return fetch(`${this._baseUrl}/${urlOptions}`, {
       headers: {
         authorization: this._headers.authorization
       }
     })
-    .then(response => {
-      if (response.ok) { 
-        return response.json();
-      }
-
-      return Promise.reject(`Ошибка: ${response.status}`);
-    })
+    .then(this._handleResponse);
   }
 
   getUserInfo() {
@@ -37,13 +39,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify(newData)
     })
-    .then(response => {
-      if (response.ok) { 
-        return response.json();
-      }
-
-      return Promise.reject(`Ошибка: ${response.status}`);
-    })
+    .then(this._handleResponse);
   }
 
   updateUserInfo(newData) {
@@ -60,13 +56,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({name, link})
     })
-    .then(response => {
-      if (response.ok) { 
-        return response.json();
-      }
-
-      return Promise.reject(`Ошибка: ${response.status}`);
-    })
+    .then(this._handleResponse);
   }
 
   deleteCard(id) {
@@ -76,13 +66,7 @@ class Api {
         authorization: this._headers.authorization
       }
     })
-    .then(response => {
-      if (response.ok) { 
-        return Promise.resolve(`Удалено успешно: ${response.status}`)
-      }
-
-      return Promise.reject(`Ошибка: ${response.status}`);
-    })
+    .then(this._handleResponse);
   }
 
   toggleLike(id, method) {
@@ -92,13 +76,7 @@ class Api {
         authorization: this._headers.authorization
       }
     })
-    .then(response => {
-      if (response.ok) { 
-        return response.json();
-      }
-
-      return Promise.reject(`Ошибка: ${response.status}`);
-    })
+    .then(this._handleResponse);
   }
 }
 
