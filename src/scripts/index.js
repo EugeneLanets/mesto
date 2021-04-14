@@ -45,6 +45,7 @@ const profilePopup = new PopupWithForm(profilePopupSelector, ({name, about}) => 
   api.updateUserInfo({name, about})
     .then(({name, about}) => {
       userInfo.setUserInfo({name, about});
+      profilePopup.close();
     })
     .catch(err => {
       console.log(err);
@@ -52,7 +53,6 @@ const profilePopup = new PopupWithForm(profilePopupSelector, ({name, about}) => 
     .finally(() => {
       profilePopup.resetSubmitText();
     })
-  profilePopup.close();
 });
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, about}) => {
@@ -62,6 +62,7 @@ const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, about}) => 
     .then((cardData) => {
       const card = createCard(cardData);
       gallery.addItem(card);
+      addCardPopup.close();
     })
     .catch(err => {
       console.log(err);
@@ -69,7 +70,6 @@ const addCardPopup = new PopupWithForm(addCardPopupSelector, ({name, about}) => 
     .finally(() => {
       addCardPopup.resetSubmitText();
     })
-  addCardPopup.close();
 });
 
 const deleteCardPopup = new PopupWithForm(
@@ -95,6 +95,7 @@ const updateAvatarPopup = new PopupWithForm(
     api.updateAvatar({avatar: about})
       .then(({avatar}) => {
         avatarElement.setAvatar(avatar)
+        updateAvatarPopup.close();
       })
       .catch(err => {
         console.log(err);
@@ -102,7 +103,6 @@ const updateAvatarPopup = new PopupWithForm(
       .finally(() => {
         updateAvatarPopup.resetSubmitText();
       })
-    updateAvatarPopup.close();
   }
 );
 
